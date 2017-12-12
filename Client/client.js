@@ -1,5 +1,5 @@
 var peerConnection;
-var uuid;
+var uuid=-1;
 var test = 1;
 
 var peerConnectionConfig = {
@@ -9,8 +9,8 @@ var peerConnectionConfig = {
     ]
 };
 
+//Activates when page is loaded
 function pageReady() {
-    uuid = uuid();
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
     serverConnection.onmessage = gotMessageFromServer;
@@ -21,23 +21,26 @@ function pageReady() {
     };
 }
 
-function start(isCaller) {
+//Starts peer connection
+function start() {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
-
-    if(isCaller) {
-        peerConnection.createOffer().then(createdDescription).catch(errorHandler);
-    }
 }
 
 function gotMessageFromServer(message) {
-    if(!peerConnection) start(false);
+    if(!peerConnection) start();
 
     var signal = JSON.parse(message.data);
 
     // Ignore messages from ourself
     if(signal.uuid == uuid) return;
 
+    if(signal.set){
+        uuid = signal.uuid
+        updateHTML();
+        test++;
+    }
+    //Receive offer from server
     if(signal.sdp) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             // Only create answers in response to offers
@@ -46,9 +49,22 @@ function gotMessageFromServer(message) {
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
             }
         }).catch(errorHandler);
+    //Receive ICE candidate
     } else if(signal.ice) {
         peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+    //Reset for new test
+    } else if(signal.reset){
+        start();
     }
+}
+
+//Answers the offer
+function createdDescription(description) {
+    console.log('got description', description);
+
+    peerConnection.setLocalDescription(description).then(function() {
+        serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
+    }).catch(errorHandler);
 }
 
 function gotIceCandidate(event) {
@@ -57,29 +73,10 @@ function gotIceCandidate(event) {
     }
 }
 
-function createdDescription(description) {
-    console.log('got description');
-
-    peerConnection.setLocalDescription(description).then(function() {
-        //SENDS Offer
-        serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
-    }).catch(errorHandler);
-}
-
 function errorHandler(error) {
     console.log(error);
 }
-
-// Taken from http://stackoverflow.com/a/105074/515584
-// Strictly speaking, it's not a real UUID, but it gets the job done here
-function uuid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  }
-
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
-
+//Updates html
 function updateHTML(){
     let el = document.getElementById(test);
     el.className = '';
