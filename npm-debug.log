@@ -1,0 +1,788 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'webrtc-native',
+1 verbose cli   '--save' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData webrtc-native
+8 silly fetchNamedPackageData webrtc-native
+9 silly mapToRegistry name webrtc-native
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry uri https://registry.npmjs.org/webrtc-native
+13 verbose request uri https://registry.npmjs.org/webrtc-native
+14 verbose request no auth needed
+15 info attempt registry request try #1 at 21:19:47
+16 verbose request id c8dd2f1b255c14e8
+17 verbose etag "5700b793-10e91"
+18 verbose lastModified Sun, 3 Apr 2016 6:26:27 GMT
+19 http request GET https://registry.npmjs.org/webrtc-native
+20 http 304 https://registry.npmjs.org/webrtc-native
+21 verbose headers { date: 'Tue, 12 Dec 2017 12:19:48 GMT',
+21 verbose headers   via: '1.1 varnish',
+21 verbose headers   'cache-control': 'max-age=300',
+21 verbose headers   etag: '"5700b793-10e91"',
+21 verbose headers   age: '206',
+21 verbose headers   connection: 'keep-alive',
+21 verbose headers   'x-served-by': 'cache-itm18830-ITM',
+21 verbose headers   'x-cache': 'HIT',
+21 verbose headers   'x-cache-hits': '1',
+21 verbose headers   'x-timer': 'S1513081188.427184,VS0,VE1',
+21 verbose headers   vary: 'Accept-Encoding, Accept' }
+22 silly get cb [ 304,
+22 silly get   { date: 'Tue, 12 Dec 2017 12:19:48 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     'cache-control': 'max-age=300',
+22 silly get     etag: '"5700b793-10e91"',
+22 silly get     age: '206',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-itm18830-ITM',
+22 silly get     'x-cache': 'HIT',
+22 silly get     'x-cache-hits': '1',
+22 silly get     'x-timer': 'S1513081188.427184,VS0,VE1',
+22 silly get     vary: 'Accept-Encoding, Accept' } ]
+23 verbose etag https://registry.npmjs.org/webrtc-native from cache
+24 verbose get saving webrtc-native to /home/robin/.npm/registry.npmjs.org/webrtc-native/.cache.json
+25 silly install normalizeTree
+26 silly loadCurrentTree Finishing
+27 silly loadIdealTree Starting
+28 silly install loadIdealTree
+29 silly cloneCurrentTree Starting
+30 silly install cloneCurrentTreeToIdealTree
+31 silly cloneCurrentTree Finishing
+32 silly loadShrinkwrap Starting
+33 silly install loadShrinkwrap
+34 silly loadShrinkwrap Finishing
+35 silly loadAllDepsIntoIdealTree Starting
+36 silly install loadAllDepsIntoIdealTree
+37 silly resolveWithNewModule webrtc-native@1.4.0 checking installable status
+38 silly cache add args [ 'webrtc-native', null ]
+39 verbose cache add spec webrtc-native
+40 silly cache add parsed spec Result {
+40 silly cache add   raw: 'webrtc-native',
+40 silly cache add   scope: null,
+40 silly cache add   name: 'webrtc-native',
+40 silly cache add   rawSpec: '',
+40 silly cache add   spec: 'latest',
+40 silly cache add   type: 'tag' }
+41 silly addNamed webrtc-native@latest
+42 verbose addNamed "latest" is being treated as a dist-tag for webrtc-native
+43 info addNameTag [ 'webrtc-native', 'latest' ]
+44 silly mapToRegistry name webrtc-native
+45 silly mapToRegistry using default registry
+46 silly mapToRegistry registry https://registry.npmjs.org/
+47 silly mapToRegistry uri https://registry.npmjs.org/webrtc-native
+48 verbose addNameTag registry:https://registry.npmjs.org/webrtc-native not in flight; fetching
+49 verbose get https://registry.npmjs.org/webrtc-native not expired, no request
+50 silly addNameTag next cb for webrtc-native with tag latest
+51 silly addNamed webrtc-native@1.4.0
+52 verbose addNamed "1.4.0" is a plain semver version for webrtc-native
+53 silly cache afterAdd webrtc-native@1.4.0
+54 verbose afterAdd /home/robin/.npm/webrtc-native/1.4.0/package/package.json not in flight; writing
+55 verbose afterAdd /home/robin/.npm/webrtc-native/1.4.0/package/package.json written
+56 silly loadAllDepsIntoIdealTree Finishing
+57 silly idealTree:prePrune serverless-webrtc@1.0.5
+57 silly idealTree:prePrune ├── abbrev@1.1.0
+57 silly idealTree:prePrune ├── ajv@4.11.7
+57 silly idealTree:prePrune ├── ansi-regex@2.1.1
+57 silly idealTree:prePrune ├── ansi@0.3.0
+57 silly idealTree:prePrune ├── aproba@1.1.1
+57 silly idealTree:prePrune ├── are-we-there-yet@1.1.4
+57 silly idealTree:prePrune ├── asn1@0.2.3
+57 silly idealTree:prePrune ├── assert-plus@0.2.0
+57 silly idealTree:prePrune ├── asynckit@0.4.0
+57 silly idealTree:prePrune ├── aws-sign2@0.6.0
+57 silly idealTree:prePrune ├── aws4@1.6.0
+57 silly idealTree:prePrune ├── balanced-match@0.4.2
+57 silly idealTree:prePrune ├── base64-js@0.0.8
+57 silly idealTree:prePrune ├── bcrypt-pbkdf@1.0.1
+57 silly idealTree:prePrune ├── bl@1.2.0
+57 silly idealTree:prePrune ├── block-stream@0.0.9
+57 silly idealTree:prePrune ├── boom@2.10.1
+57 silly idealTree:prePrune ├── brace-expansion@1.1.7
+57 silly idealTree:prePrune ├── browserify-zlib@0.1.4
+57 silly idealTree:prePrune ├── buffer-crc32@0.2.13
+57 silly idealTree:prePrune ├── buffer-shims@1.0.0
+57 silly idealTree:prePrune ├── buffer@3.6.0
+57 silly idealTree:prePrune ├── capture-stack-trace@1.0.0
+57 silly idealTree:prePrune ├── caseless@0.12.0
+57 silly idealTree:prePrune ├── caw@2.0.0
+57 silly idealTree:prePrune ├── chownr@1.0.1
+57 silly idealTree:prePrune ├── co@4.6.0
+57 silly idealTree:prePrune ├── code-point-at@1.1.0
+57 silly idealTree:prePrune ├── combined-stream@1.0.5
+57 silly idealTree:prePrune ├── commander@2.8.1
+57 silly idealTree:prePrune ├── concat-map@0.0.1
+57 silly idealTree:prePrune ├── console-control-strings@1.1.0
+57 silly idealTree:prePrune ├── core-util-is@1.0.2
+57 silly idealTree:prePrune ├── create-error-class@3.0.2
+57 silly idealTree:prePrune ├── cryptiles@2.0.5
+57 silly idealTree:prePrune ├─┬ dashdash@1.14.1
+57 silly idealTree:prePrune │ └── assert-plus@1.0.0
+57 silly idealTree:prePrune ├── debug@2.6.4
+57 silly idealTree:prePrune ├── decompress-tar@4.1.0
+57 silly idealTree:prePrune ├── decompress-tarbz2@4.1.0
+57 silly idealTree:prePrune ├── decompress-targz@4.0.0
+57 silly idealTree:prePrune ├─┬ decompress-unzip@4.0.1
+57 silly idealTree:prePrune │ └── get-stream@2.3.1
+57 silly idealTree:prePrune ├── decompress@4.1.0
+57 silly idealTree:prePrune ├── deep-extend@0.4.1
+57 silly idealTree:prePrune ├── delayed-stream@1.0.0
+57 silly idealTree:prePrune ├── delegates@1.0.0
+57 silly idealTree:prePrune ├── download@5.0.3
+57 silly idealTree:prePrune ├── duplexer3@0.1.4
+57 silly idealTree:prePrune ├─┬ duplexify@3.5.0
+57 silly idealTree:prePrune │ ├── end-of-stream@1.0.0
+57 silly idealTree:prePrune │ └── once@1.3.3
+57 silly idealTree:prePrune ├── ecc-jsbn@0.1.1
+57 silly idealTree:prePrune ├── end-of-stream@1.4.0
+57 silly idealTree:prePrune ├── escape-string-regexp@1.0.5
+57 silly idealTree:prePrune ├── extend@3.0.0
+57 silly idealTree:prePrune ├── extsprintf@1.0.2
+57 silly idealTree:prePrune ├── fd-slicer@1.0.1
+57 silly idealTree:prePrune ├── file-type@3.9.0
+57 silly idealTree:prePrune ├── filename-reserved-regex@2.0.0
+57 silly idealTree:prePrune ├── filenamify@2.0.0
+57 silly idealTree:prePrune ├── forever-agent@0.6.1
+57 silly idealTree:prePrune ├── form-data@2.1.4
+57 silly idealTree:prePrune ├── fs.realpath@1.0.0
+57 silly idealTree:prePrune ├── fstream-ignore@1.0.5
+57 silly idealTree:prePrune ├── fstream@1.0.11
+57 silly idealTree:prePrune ├── gauge@2.7.4
+57 silly idealTree:prePrune ├── get-proxy@1.1.0
+57 silly idealTree:prePrune ├── get-stream@3.0.0
+57 silly idealTree:prePrune ├─┬ getpass@0.1.7
+57 silly idealTree:prePrune │ └── assert-plus@1.0.0
+57 silly idealTree:prePrune ├── glob@7.1.1
+57 silly idealTree:prePrune ├── got@6.7.1
+57 silly idealTree:prePrune ├── graceful-fs@4.1.11
+57 silly idealTree:prePrune ├── graceful-readlink@1.0.1
+57 silly idealTree:prePrune ├── gunzip-maybe@1.4.0
+57 silly idealTree:prePrune ├── har-schema@1.0.5
+57 silly idealTree:prePrune ├── har-validator@4.2.1
+57 silly idealTree:prePrune ├── has-unicode@2.0.1
+57 silly idealTree:prePrune ├── hawk@3.1.3
+57 silly idealTree:prePrune ├── hoek@2.16.3
+57 silly idealTree:prePrune ├── http-signature@1.1.1
+57 silly idealTree:prePrune ├── ieee754@1.1.8
+57 silly idealTree:prePrune ├── inflight@1.0.6
+57 silly idealTree:prePrune ├── inherits@2.0.3
+57 silly idealTree:prePrune ├── ini@1.3.4
+57 silly idealTree:prePrune ├── is-deflate@1.0.0
+57 silly idealTree:prePrune ├── is-fullwidth-code-point@1.0.0
+57 silly idealTree:prePrune ├── is-gzip@1.0.0
+57 silly idealTree:prePrune ├── is-natural-number@4.0.1
+57 silly idealTree:prePrune ├── is-redirect@1.0.0
+57 silly idealTree:prePrune ├── is-retry-allowed@1.1.0
+57 silly idealTree:prePrune ├── is-stream@1.1.0
+57 silly idealTree:prePrune ├── is-typedarray@1.0.0
+57 silly idealTree:prePrune ├── isarray@1.0.0
+57 silly idealTree:prePrune ├── isstream@0.1.2
+57 silly idealTree:prePrune ├── jodid25519@1.0.2
+57 silly idealTree:prePrune ├── jsbn@0.1.1
+57 silly idealTree:prePrune ├── json-schema@0.2.3
+57 silly idealTree:prePrune ├── json-stable-stringify@1.0.1
+57 silly idealTree:prePrune ├── json-stringify-safe@5.0.1
+57 silly idealTree:prePrune ├── jsonify@0.0.0
+57 silly idealTree:prePrune ├─┬ jsprim@1.4.0
+57 silly idealTree:prePrune │ └── assert-plus@1.0.0
+57 silly idealTree:prePrune ├── lowercase-keys@1.0.0
+57 silly idealTree:prePrune ├── mime-db@1.27.0
+57 silly idealTree:prePrune ├── mime-types@2.1.15
+57 silly idealTree:prePrune ├── minimatch@3.0.3
+57 silly idealTree:prePrune ├── minimist@1.2.0
+57 silly idealTree:prePrune ├─┬ mkdirp@0.5.1
+57 silly idealTree:prePrune │ └── minimist@0.0.8
+57 silly idealTree:prePrune ├── ms@0.7.3
+57 silly idealTree:prePrune ├── nan@2.6.2
+57 silly idealTree:prePrune ├── node-pre-gyp@0.6.34
+57 silly idealTree:prePrune ├── nopt@4.0.1
+57 silly idealTree:prePrune ├── npmlog@4.0.2
+57 silly idealTree:prePrune ├── number-is-nan@1.0.1
+57 silly idealTree:prePrune ├── oauth-sign@0.8.2
+57 silly idealTree:prePrune ├── object-assign@4.1.1
+57 silly idealTree:prePrune ├── once@1.4.0
+57 silly idealTree:prePrune ├── os-homedir@1.0.2
+57 silly idealTree:prePrune ├── os-tmpdir@1.0.2
+57 silly idealTree:prePrune ├── osenv@0.1.4
+57 silly idealTree:prePrune ├── pako@0.2.9
+57 silly idealTree:prePrune ├── path-is-absolute@1.0.1
+57 silly idealTree:prePrune ├── peek-stream@1.1.2
+57 silly idealTree:prePrune ├── pend@1.2.0
+57 silly idealTree:prePrune ├── performance-now@0.2.0
+57 silly idealTree:prePrune ├── pify@2.3.0
+57 silly idealTree:prePrune ├── pinkie-promise@2.0.1
+57 silly idealTree:prePrune ├── pinkie@2.0.4
+57 silly idealTree:prePrune ├── prepend-http@1.0.4
+57 silly idealTree:prePrune ├── process-nextick-args@1.0.7
+57 silly idealTree:prePrune ├── pump@1.0.2
+57 silly idealTree:prePrune ├── pumpify@1.3.5
+57 silly idealTree:prePrune ├── punycode@1.4.1
+57 silly idealTree:prePrune ├── qs@6.4.0
+57 silly idealTree:prePrune ├── rc@1.2.1
+57 silly idealTree:prePrune ├── readable-stream@2.2.9
+57 silly idealTree:prePrune ├─┬ request@2.81.0
+57 silly idealTree:prePrune │ └── tunnel-agent@0.6.0
+57 silly idealTree:prePrune ├── rimraf@2.6.1
+57 silly idealTree:prePrune ├── safe-buffer@5.0.1
+57 silly idealTree:prePrune ├── seek-bzip@1.0.5
+57 silly idealTree:prePrune ├── semver@5.3.0
+57 silly idealTree:prePrune ├── set-blocking@2.0.0
+57 silly idealTree:prePrune ├── signal-exit@3.0.2
+57 silly idealTree:prePrune ├── sntp@1.0.9
+57 silly idealTree:prePrune ├─┬ sshpk@1.13.0
+57 silly idealTree:prePrune │ └── assert-plus@1.0.0
+57 silly idealTree:prePrune ├── stream-shift@1.0.0
+57 silly idealTree:prePrune ├── string_decoder@1.0.0
+57 silly idealTree:prePrune ├── string-width@1.0.2
+57 silly idealTree:prePrune ├── stringstream@0.0.5
+57 silly idealTree:prePrune ├── strip-ansi@3.0.1
+57 silly idealTree:prePrune ├── strip-dirs@2.0.0
+57 silly idealTree:prePrune ├── strip-json-comments@2.0.1
+57 silly idealTree:prePrune ├── strip-outer@1.0.0
+57 silly idealTree:prePrune ├── tar-fs@1.15.2
+57 silly idealTree:prePrune ├── tar-pack@3.4.0
+57 silly idealTree:prePrune ├── tar-stream@1.5.2
+57 silly idealTree:prePrune ├── tar@2.2.1
+57 silly idealTree:prePrune ├── through@2.3.8
+57 silly idealTree:prePrune ├── through2@2.0.3
+57 silly idealTree:prePrune ├── timed-out@4.0.1
+57 silly idealTree:prePrune ├── tough-cookie@2.3.2
+57 silly idealTree:prePrune ├── trim-repeated@1.0.0
+57 silly idealTree:prePrune ├── tunnel-agent@0.4.3
+57 silly idealTree:prePrune ├── tweetnacl@0.14.5
+57 silly idealTree:prePrune ├── uid-number@0.0.6
+57 silly idealTree:prePrune ├── unbzip2-stream@1.0.11
+57 silly idealTree:prePrune ├── unzip-response@2.0.1
+57 silly idealTree:prePrune ├── url-parse-lax@1.0.0
+57 silly idealTree:prePrune ├── util-deprecate@1.0.2
+57 silly idealTree:prePrune ├── uuid@3.0.1
+57 silly idealTree:prePrune ├── verror@1.3.6
+57 silly idealTree:prePrune ├── webrtc-native@1.4.0
+57 silly idealTree:prePrune ├── wide-align@1.1.0
+57 silly idealTree:prePrune ├── wrappy@1.0.2
+57 silly idealTree:prePrune ├── wrtc@0.0.62
+57 silly idealTree:prePrune ├── xtend@4.0.1
+57 silly idealTree:prePrune └── yauzl@2.8.0
+58 silly loadIdealTree Finishing
+59 silly currentTree serverless-webrtc@1.0.5
+59 silly currentTree ├── abbrev@1.1.0
+59 silly currentTree ├── ajv@4.11.7
+59 silly currentTree ├── ansi-regex@2.1.1
+59 silly currentTree ├── ansi@0.3.0
+59 silly currentTree ├── aproba@1.1.1
+59 silly currentTree ├── are-we-there-yet@1.1.4
+59 silly currentTree ├── asn1@0.2.3
+59 silly currentTree ├── assert-plus@0.2.0
+59 silly currentTree ├── asynckit@0.4.0
+59 silly currentTree ├── aws-sign2@0.6.0
+59 silly currentTree ├── aws4@1.6.0
+59 silly currentTree ├── balanced-match@0.4.2
+59 silly currentTree ├── base64-js@0.0.8
+59 silly currentTree ├── bcrypt-pbkdf@1.0.1
+59 silly currentTree ├── bl@1.2.0
+59 silly currentTree ├── block-stream@0.0.9
+59 silly currentTree ├── boom@2.10.1
+59 silly currentTree ├── brace-expansion@1.1.7
+59 silly currentTree ├── browserify-zlib@0.1.4
+59 silly currentTree ├── buffer-crc32@0.2.13
+59 silly currentTree ├── buffer-shims@1.0.0
+59 silly currentTree ├── buffer@3.6.0
+59 silly currentTree ├── capture-stack-trace@1.0.0
+59 silly currentTree ├── caseless@0.12.0
+59 silly currentTree ├── caw@2.0.0
+59 silly currentTree ├── chownr@1.0.1
+59 silly currentTree ├── co@4.6.0
+59 silly currentTree ├── code-point-at@1.1.0
+59 silly currentTree ├── combined-stream@1.0.5
+59 silly currentTree ├── commander@2.8.1
+59 silly currentTree ├── concat-map@0.0.1
+59 silly currentTree ├── console-control-strings@1.1.0
+59 silly currentTree ├── core-util-is@1.0.2
+59 silly currentTree ├── create-error-class@3.0.2
+59 silly currentTree ├── cryptiles@2.0.5
+59 silly currentTree ├─┬ dashdash@1.14.1
+59 silly currentTree │ └── assert-plus@1.0.0
+59 silly currentTree ├── debug@2.6.4
+59 silly currentTree ├── decompress-tar@4.1.0
+59 silly currentTree ├── decompress-tarbz2@4.1.0
+59 silly currentTree ├── decompress-targz@4.0.0
+59 silly currentTree ├─┬ decompress-unzip@4.0.1
+59 silly currentTree │ └── get-stream@2.3.1
+59 silly currentTree ├── decompress@4.1.0
+59 silly currentTree ├── deep-extend@0.4.1
+59 silly currentTree ├── delayed-stream@1.0.0
+59 silly currentTree ├── delegates@1.0.0
+59 silly currentTree ├── download@5.0.3
+59 silly currentTree ├── duplexer3@0.1.4
+59 silly currentTree ├─┬ duplexify@3.5.0
+59 silly currentTree │ ├── end-of-stream@1.0.0
+59 silly currentTree │ └── once@1.3.3
+59 silly currentTree ├── ecc-jsbn@0.1.1
+59 silly currentTree ├── end-of-stream@1.4.0
+59 silly currentTree ├── escape-string-regexp@1.0.5
+59 silly currentTree ├── extend@3.0.0
+59 silly currentTree ├── extsprintf@1.0.2
+59 silly currentTree ├── fd-slicer@1.0.1
+59 silly currentTree ├── file-type@3.9.0
+59 silly currentTree ├── filename-reserved-regex@2.0.0
+59 silly currentTree ├── filenamify@2.0.0
+59 silly currentTree ├── forever-agent@0.6.1
+59 silly currentTree ├── form-data@2.1.4
+59 silly currentTree ├── fs.realpath@1.0.0
+59 silly currentTree ├── fstream-ignore@1.0.5
+59 silly currentTree ├── fstream@1.0.11
+59 silly currentTree ├── gauge@2.7.4
+59 silly currentTree ├── get-proxy@1.1.0
+59 silly currentTree ├── get-stream@3.0.0
+59 silly currentTree ├─┬ getpass@0.1.7
+59 silly currentTree │ └── assert-plus@1.0.0
+59 silly currentTree ├── glob@7.1.1
+59 silly currentTree ├── got@6.7.1
+59 silly currentTree ├── graceful-fs@4.1.11
+59 silly currentTree ├── graceful-readlink@1.0.1
+59 silly currentTree ├── gunzip-maybe@1.4.0
+59 silly currentTree ├── har-schema@1.0.5
+59 silly currentTree ├── har-validator@4.2.1
+59 silly currentTree ├── has-unicode@2.0.1
+59 silly currentTree ├── hawk@3.1.3
+59 silly currentTree ├── hoek@2.16.3
+59 silly currentTree ├── http-signature@1.1.1
+59 silly currentTree ├── ieee754@1.1.8
+59 silly currentTree ├── inflight@1.0.6
+59 silly currentTree ├── inherits@2.0.3
+59 silly currentTree ├── ini@1.3.4
+59 silly currentTree ├── is-deflate@1.0.0
+59 silly currentTree ├── is-fullwidth-code-point@1.0.0
+59 silly currentTree ├── is-gzip@1.0.0
+59 silly currentTree ├── is-natural-number@4.0.1
+59 silly currentTree ├── is-redirect@1.0.0
+59 silly currentTree ├── is-retry-allowed@1.1.0
+59 silly currentTree ├── is-stream@1.1.0
+59 silly currentTree ├── is-typedarray@1.0.0
+59 silly currentTree ├── isarray@1.0.0
+59 silly currentTree ├── isstream@0.1.2
+59 silly currentTree ├── jodid25519@1.0.2
+59 silly currentTree ├── jsbn@0.1.1
+59 silly currentTree ├── json-schema@0.2.3
+59 silly currentTree ├── json-stable-stringify@1.0.1
+59 silly currentTree ├── json-stringify-safe@5.0.1
+59 silly currentTree ├── jsonify@0.0.0
+59 silly currentTree ├─┬ jsprim@1.4.0
+59 silly currentTree │ └── assert-plus@1.0.0
+59 silly currentTree ├── lowercase-keys@1.0.0
+59 silly currentTree ├── mime-db@1.27.0
+59 silly currentTree ├── mime-types@2.1.15
+59 silly currentTree ├── minimatch@3.0.3
+59 silly currentTree ├── minimist@1.2.0
+59 silly currentTree ├─┬ mkdirp@0.5.1
+59 silly currentTree │ └── minimist@0.0.8
+59 silly currentTree ├── ms@0.7.3
+59 silly currentTree ├── nan@2.6.2
+59 silly currentTree ├── node-pre-gyp@0.6.34
+59 silly currentTree ├── nopt@4.0.1
+59 silly currentTree ├── npmlog@4.0.2
+59 silly currentTree ├── number-is-nan@1.0.1
+59 silly currentTree ├── oauth-sign@0.8.2
+59 silly currentTree ├── object-assign@4.1.1
+59 silly currentTree ├── once@1.4.0
+59 silly currentTree ├── os-homedir@1.0.2
+59 silly currentTree ├── os-tmpdir@1.0.2
+59 silly currentTree ├── osenv@0.1.4
+59 silly currentTree ├── pako@0.2.9
+59 silly currentTree ├── path-is-absolute@1.0.1
+59 silly currentTree ├── peek-stream@1.1.2
+59 silly currentTree ├── pend@1.2.0
+59 silly currentTree ├── performance-now@0.2.0
+59 silly currentTree ├── pify@2.3.0
+59 silly currentTree ├── pinkie-promise@2.0.1
+59 silly currentTree ├── pinkie@2.0.4
+59 silly currentTree ├── prepend-http@1.0.4
+59 silly currentTree ├── process-nextick-args@1.0.7
+59 silly currentTree ├── pump@1.0.2
+59 silly currentTree ├── pumpify@1.3.5
+59 silly currentTree ├── punycode@1.4.1
+59 silly currentTree ├── qs@6.4.0
+59 silly currentTree ├── rc@1.2.1
+59 silly currentTree ├── readable-stream@2.2.9
+59 silly currentTree ├─┬ request@2.81.0
+59 silly currentTree │ └── tunnel-agent@0.6.0
+59 silly currentTree ├── rimraf@2.6.1
+59 silly currentTree ├── safe-buffer@5.0.1
+59 silly currentTree ├── seek-bzip@1.0.5
+59 silly currentTree ├── semver@5.3.0
+59 silly currentTree ├── set-blocking@2.0.0
+59 silly currentTree ├── signal-exit@3.0.2
+59 silly currentTree ├── sntp@1.0.9
+59 silly currentTree ├─┬ sshpk@1.13.0
+59 silly currentTree │ └── assert-plus@1.0.0
+59 silly currentTree ├── stream-shift@1.0.0
+59 silly currentTree ├── string_decoder@1.0.0
+59 silly currentTree ├── string-width@1.0.2
+59 silly currentTree ├── stringstream@0.0.5
+59 silly currentTree ├── strip-ansi@3.0.1
+59 silly currentTree ├── strip-dirs@2.0.0
+59 silly currentTree ├── strip-json-comments@2.0.1
+59 silly currentTree ├── strip-outer@1.0.0
+59 silly currentTree ├── tar-fs@1.15.2
+59 silly currentTree ├── tar-pack@3.4.0
+59 silly currentTree ├── tar-stream@1.5.2
+59 silly currentTree ├── tar@2.2.1
+59 silly currentTree ├── through@2.3.8
+59 silly currentTree ├── through2@2.0.3
+59 silly currentTree ├── timed-out@4.0.1
+59 silly currentTree ├── tough-cookie@2.3.2
+59 silly currentTree ├── trim-repeated@1.0.0
+59 silly currentTree ├── tunnel-agent@0.4.3
+59 silly currentTree ├── tweetnacl@0.14.5
+59 silly currentTree ├── uid-number@0.0.6
+59 silly currentTree ├── unbzip2-stream@1.0.11
+59 silly currentTree ├── unzip-response@2.0.1
+59 silly currentTree ├── url-parse-lax@1.0.0
+59 silly currentTree ├── util-deprecate@1.0.2
+59 silly currentTree ├── uuid@3.0.1
+59 silly currentTree ├── verror@1.3.6
+59 silly currentTree ├── wide-align@1.1.0
+59 silly currentTree ├── wrappy@1.0.2
+59 silly currentTree ├── wrtc@0.0.62
+59 silly currentTree ├── xtend@4.0.1
+59 silly currentTree └── yauzl@2.8.0
+60 silly idealTree serverless-webrtc@1.0.5
+60 silly idealTree ├── abbrev@1.1.0
+60 silly idealTree ├── ajv@4.11.7
+60 silly idealTree ├── ansi-regex@2.1.1
+60 silly idealTree ├── ansi@0.3.0
+60 silly idealTree ├── aproba@1.1.1
+60 silly idealTree ├── are-we-there-yet@1.1.4
+60 silly idealTree ├── asn1@0.2.3
+60 silly idealTree ├── assert-plus@0.2.0
+60 silly idealTree ├── asynckit@0.4.0
+60 silly idealTree ├── aws-sign2@0.6.0
+60 silly idealTree ├── aws4@1.6.0
+60 silly idealTree ├── balanced-match@0.4.2
+60 silly idealTree ├── base64-js@0.0.8
+60 silly idealTree ├── bcrypt-pbkdf@1.0.1
+60 silly idealTree ├── bl@1.2.0
+60 silly idealTree ├── block-stream@0.0.9
+60 silly idealTree ├── boom@2.10.1
+60 silly idealTree ├── brace-expansion@1.1.7
+60 silly idealTree ├── browserify-zlib@0.1.4
+60 silly idealTree ├── buffer-crc32@0.2.13
+60 silly idealTree ├── buffer-shims@1.0.0
+60 silly idealTree ├── buffer@3.6.0
+60 silly idealTree ├── capture-stack-trace@1.0.0
+60 silly idealTree ├── caseless@0.12.0
+60 silly idealTree ├── caw@2.0.0
+60 silly idealTree ├── chownr@1.0.1
+60 silly idealTree ├── co@4.6.0
+60 silly idealTree ├── code-point-at@1.1.0
+60 silly idealTree ├── combined-stream@1.0.5
+60 silly idealTree ├── commander@2.8.1
+60 silly idealTree ├── concat-map@0.0.1
+60 silly idealTree ├── console-control-strings@1.1.0
+60 silly idealTree ├── core-util-is@1.0.2
+60 silly idealTree ├── create-error-class@3.0.2
+60 silly idealTree ├── cryptiles@2.0.5
+60 silly idealTree ├─┬ dashdash@1.14.1
+60 silly idealTree │ └── assert-plus@1.0.0
+60 silly idealTree ├── debug@2.6.4
+60 silly idealTree ├── decompress-tar@4.1.0
+60 silly idealTree ├── decompress-tarbz2@4.1.0
+60 silly idealTree ├── decompress-targz@4.0.0
+60 silly idealTree ├─┬ decompress-unzip@4.0.1
+60 silly idealTree │ └── get-stream@2.3.1
+60 silly idealTree ├── decompress@4.1.0
+60 silly idealTree ├── deep-extend@0.4.1
+60 silly idealTree ├── delayed-stream@1.0.0
+60 silly idealTree ├── delegates@1.0.0
+60 silly idealTree ├── download@5.0.3
+60 silly idealTree ├── duplexer3@0.1.4
+60 silly idealTree ├─┬ duplexify@3.5.0
+60 silly idealTree │ ├── end-of-stream@1.0.0
+60 silly idealTree │ └── once@1.3.3
+60 silly idealTree ├── ecc-jsbn@0.1.1
+60 silly idealTree ├── end-of-stream@1.4.0
+60 silly idealTree ├── escape-string-regexp@1.0.5
+60 silly idealTree ├── extend@3.0.0
+60 silly idealTree ├── extsprintf@1.0.2
+60 silly idealTree ├── fd-slicer@1.0.1
+60 silly idealTree ├── file-type@3.9.0
+60 silly idealTree ├── filename-reserved-regex@2.0.0
+60 silly idealTree ├── filenamify@2.0.0
+60 silly idealTree ├── forever-agent@0.6.1
+60 silly idealTree ├── form-data@2.1.4
+60 silly idealTree ├── fs.realpath@1.0.0
+60 silly idealTree ├── fstream-ignore@1.0.5
+60 silly idealTree ├── fstream@1.0.11
+60 silly idealTree ├── gauge@2.7.4
+60 silly idealTree ├── get-proxy@1.1.0
+60 silly idealTree ├── get-stream@3.0.0
+60 silly idealTree ├─┬ getpass@0.1.7
+60 silly idealTree │ └── assert-plus@1.0.0
+60 silly idealTree ├── glob@7.1.1
+60 silly idealTree ├── got@6.7.1
+60 silly idealTree ├── graceful-fs@4.1.11
+60 silly idealTree ├── graceful-readlink@1.0.1
+60 silly idealTree ├── gunzip-maybe@1.4.0
+60 silly idealTree ├── har-schema@1.0.5
+60 silly idealTree ├── har-validator@4.2.1
+60 silly idealTree ├── has-unicode@2.0.1
+60 silly idealTree ├── hawk@3.1.3
+60 silly idealTree ├── hoek@2.16.3
+60 silly idealTree ├── http-signature@1.1.1
+60 silly idealTree ├── ieee754@1.1.8
+60 silly idealTree ├── inflight@1.0.6
+60 silly idealTree ├── inherits@2.0.3
+60 silly idealTree ├── ini@1.3.4
+60 silly idealTree ├── is-deflate@1.0.0
+60 silly idealTree ├── is-fullwidth-code-point@1.0.0
+60 silly idealTree ├── is-gzip@1.0.0
+60 silly idealTree ├── is-natural-number@4.0.1
+60 silly idealTree ├── is-redirect@1.0.0
+60 silly idealTree ├── is-retry-allowed@1.1.0
+60 silly idealTree ├── is-stream@1.1.0
+60 silly idealTree ├── is-typedarray@1.0.0
+60 silly idealTree ├── isarray@1.0.0
+60 silly idealTree ├── isstream@0.1.2
+60 silly idealTree ├── jodid25519@1.0.2
+60 silly idealTree ├── jsbn@0.1.1
+60 silly idealTree ├── json-schema@0.2.3
+60 silly idealTree ├── json-stable-stringify@1.0.1
+60 silly idealTree ├── json-stringify-safe@5.0.1
+60 silly idealTree ├── jsonify@0.0.0
+60 silly idealTree ├─┬ jsprim@1.4.0
+60 silly idealTree │ └── assert-plus@1.0.0
+60 silly idealTree ├── lowercase-keys@1.0.0
+60 silly idealTree ├── mime-db@1.27.0
+60 silly idealTree ├── mime-types@2.1.15
+60 silly idealTree ├── minimatch@3.0.3
+60 silly idealTree ├── minimist@1.2.0
+60 silly idealTree ├─┬ mkdirp@0.5.1
+60 silly idealTree │ └── minimist@0.0.8
+60 silly idealTree ├── ms@0.7.3
+60 silly idealTree ├── nan@2.6.2
+60 silly idealTree ├── node-pre-gyp@0.6.34
+60 silly idealTree ├── nopt@4.0.1
+60 silly idealTree ├── npmlog@4.0.2
+60 silly idealTree ├── number-is-nan@1.0.1
+60 silly idealTree ├── oauth-sign@0.8.2
+60 silly idealTree ├── object-assign@4.1.1
+60 silly idealTree ├── once@1.4.0
+60 silly idealTree ├── os-homedir@1.0.2
+60 silly idealTree ├── os-tmpdir@1.0.2
+60 silly idealTree ├── osenv@0.1.4
+60 silly idealTree ├── pako@0.2.9
+60 silly idealTree ├── path-is-absolute@1.0.1
+60 silly idealTree ├── peek-stream@1.1.2
+60 silly idealTree ├── pend@1.2.0
+60 silly idealTree ├── performance-now@0.2.0
+60 silly idealTree ├── pify@2.3.0
+60 silly idealTree ├── pinkie-promise@2.0.1
+60 silly idealTree ├── pinkie@2.0.4
+60 silly idealTree ├── prepend-http@1.0.4
+60 silly idealTree ├── process-nextick-args@1.0.7
+60 silly idealTree ├── pump@1.0.2
+60 silly idealTree ├── pumpify@1.3.5
+60 silly idealTree ├── punycode@1.4.1
+60 silly idealTree ├── qs@6.4.0
+60 silly idealTree ├── rc@1.2.1
+60 silly idealTree ├── readable-stream@2.2.9
+60 silly idealTree ├─┬ request@2.81.0
+60 silly idealTree │ └── tunnel-agent@0.6.0
+60 silly idealTree ├── rimraf@2.6.1
+60 silly idealTree ├── safe-buffer@5.0.1
+60 silly idealTree ├── seek-bzip@1.0.5
+60 silly idealTree ├── semver@5.3.0
+60 silly idealTree ├── set-blocking@2.0.0
+60 silly idealTree ├── signal-exit@3.0.2
+60 silly idealTree ├── sntp@1.0.9
+60 silly idealTree ├─┬ sshpk@1.13.0
+60 silly idealTree │ └── assert-plus@1.0.0
+60 silly idealTree ├── stream-shift@1.0.0
+60 silly idealTree ├── string_decoder@1.0.0
+60 silly idealTree ├── string-width@1.0.2
+60 silly idealTree ├── stringstream@0.0.5
+60 silly idealTree ├── strip-ansi@3.0.1
+60 silly idealTree ├── strip-dirs@2.0.0
+60 silly idealTree ├── strip-json-comments@2.0.1
+60 silly idealTree ├── strip-outer@1.0.0
+60 silly idealTree ├── tar-fs@1.15.2
+60 silly idealTree ├── tar-pack@3.4.0
+60 silly idealTree ├── tar-stream@1.5.2
+60 silly idealTree ├── tar@2.2.1
+60 silly idealTree ├── through@2.3.8
+60 silly idealTree ├── through2@2.0.3
+60 silly idealTree ├── timed-out@4.0.1
+60 silly idealTree ├── tough-cookie@2.3.2
+60 silly idealTree ├── trim-repeated@1.0.0
+60 silly idealTree ├── tunnel-agent@0.4.3
+60 silly idealTree ├── tweetnacl@0.14.5
+60 silly idealTree ├── uid-number@0.0.6
+60 silly idealTree ├── unbzip2-stream@1.0.11
+60 silly idealTree ├── unzip-response@2.0.1
+60 silly idealTree ├── url-parse-lax@1.0.0
+60 silly idealTree ├── util-deprecate@1.0.2
+60 silly idealTree ├── uuid@3.0.1
+60 silly idealTree ├── verror@1.3.6
+60 silly idealTree ├── webrtc-native@1.4.0
+60 silly idealTree ├── wide-align@1.1.0
+60 silly idealTree ├── wrappy@1.0.2
+60 silly idealTree ├── wrtc@0.0.62
+60 silly idealTree ├── xtend@4.0.1
+60 silly idealTree └── yauzl@2.8.0
+61 silly generateActionsToTake Starting
+62 silly install generateActionsToTake
+63 silly generateActionsToTake Finishing
+64 silly diffTrees action count 1
+65 silly diffTrees add webrtc-native@1.4.0
+66 silly decomposeActions action count 8
+67 silly decomposeActions fetch webrtc-native@1.4.0
+68 silly decomposeActions extract webrtc-native@1.4.0
+69 silly decomposeActions test webrtc-native@1.4.0
+70 silly decomposeActions preinstall webrtc-native@1.4.0
+71 silly decomposeActions build webrtc-native@1.4.0
+72 silly decomposeActions install webrtc-native@1.4.0
+73 silly decomposeActions postinstall webrtc-native@1.4.0
+74 silly decomposeActions finalize webrtc-native@1.4.0
+75 silly executeActions Starting
+76 silly install executeActions
+77 silly doSerial global-install 0
+78 silly doParallel fetch 1
+79 verbose lock using /home/robin/.npm/_locks/staging-ace4431151218c34.lock for /mnt/c/Users/Robin Lunde/node_modules/.staging
+80 silly doParallel extract 1
+81 silly extract webrtc-native@1.4.0
+82 verbose unbuild node_modules/.staging/webrtc-native-d0128f94
+83 silly gentlyRm /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94 is being purged from base /mnt/c/Users/Robin Lunde
+84 verbose gentlyRm don't care about contents; nuking /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94
+85 verbose tar unpack /home/robin/.npm/webrtc-native/1.4.0/package.tgz
+86 verbose tar unpacking to /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94
+87 silly gentlyRm /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94 is being purged
+88 verbose gentlyRm don't care about contents; nuking /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94
+89 silly gunzTarPerm modes [ '777', '666' ]
+90 silly gunzTarPerm extractEntry package.json
+91 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+92 silly gunzTarPerm extractEntry .npmignore
+93 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+94 silly gunzTarPerm extractEntry README.md
+95 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+96 silly gunzTarPerm extractEntry LICENSE
+97 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+98 silly gunzTarPerm extractEntry index.js
+99 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+100 silly gunzTarPerm extractEntry examples/node2browser/package.json
+101 silly gunzTarPerm modified mode [ 'examples/node2browser/package.json', 420, 438 ]
+102 silly gunzTarPerm extractEntry examples/node2browser/index.js
+103 silly gunzTarPerm modified mode [ 'examples/node2browser/index.js', 420, 438 ]
+104 silly gunzTarPerm extractEntry examples/node2browser/index.html
+105 silly gunzTarPerm modified mode [ 'examples/node2browser/index.html', 420, 438 ]
+106 silly gunzTarPerm extractEntry node_versions.json
+107 silly gunzTarPerm modified mode [ 'node_versions.json', 420, 438 ]
+108 silly gunzTarPerm extractEntry binding.gyp
+109 silly gunzTarPerm modified mode [ 'binding.gyp', 420, 438 ]
+110 silly gunzTarPerm extractEntry scripts/build.js
+111 silly gunzTarPerm modified mode [ 'scripts/build.js', 420, 438 ]
+112 silly gunzTarPerm extractEntry scripts/install.js
+113 silly gunzTarPerm modified mode [ 'scripts/install.js', 420, 438 ]
+114 silly gunzTarPerm extractEntry scripts/upload.js
+115 silly gunzTarPerm modified mode [ 'scripts/upload.js', 420, 438 ]
+116 silly gunzTarPerm extractEntry scripts/multibuild.cmd
+117 silly gunzTarPerm modified mode [ 'scripts/multibuild.cmd', 420, 438 ]
+118 silly gunzTarPerm extractEntry scripts/multibuild.sh
+119 silly gunzTarPerm modified mode [ 'scripts/multibuild.sh', 493, 511 ]
+120 silly gunzTarPerm extractEntry scripts/nvm.sh
+121 silly gunzTarPerm modified mode [ 'scripts/nvm.sh', 493, 511 ]
+122 silly gunzTarPerm extractEntry test/all.js
+123 silly gunzTarPerm modified mode [ 'test/all.js', 420, 438 ]
+124 silly gunzTarPerm extractEntry test/core.js
+125 silly gunzTarPerm modified mode [ 'test/core.js', 420, 438 ]
+126 silly gunzTarPerm extractEntry test/dataChannel.js
+127 silly gunzTarPerm modified mode [ 'test/dataChannel.js', 420, 438 ]
+128 silly gunzTarPerm extractEntry test/getSources.js
+129 silly gunzTarPerm modified mode [ 'test/getSources.js', 420, 438 ]
+130 silly gunzTarPerm extractEntry test/getUserMedia.js
+131 silly gunzTarPerm modified mode [ 'test/getUserMedia.js', 420, 438 ]
+132 silly gunzTarPerm extractEntry test/bwtest.js
+133 silly gunzTarPerm modified mode [ 'test/bwtest.js', 420, 438 ]
+134 silly gunzTarPerm extractEntry test/multiconnect.js
+135 silly gunzTarPerm modified mode [ 'test/multiconnect.js', 420, 438 ]
+136 silly gunzTarPerm extractEntry test/test.js
+137 silly gunzTarPerm modified mode [ 'test/test.js', 420, 438 ]
+138 silly gunzTarPerm extractEntry test/p2p.js
+139 silly gunzTarPerm modified mode [ 'test/p2p.js', 420, 438 ]
+140 silly gunzTarPerm extractEntry test/p2p_stream.js
+141 silly gunzTarPerm modified mode [ 'test/p2p_stream.js', 420, 438 ]
+142 silly gunzTarPerm extractEntry test/videoStream.js
+143 silly gunzTarPerm modified mode [ 'test/videoStream.js', 420, 438 ]
+144 silly gunzTarPerm extractEntry test/mediaStream.js
+145 silly gunzTarPerm modified mode [ 'test/mediaStream.js', 420, 438 ]
+146 silly gunzTarPerm extractEntry test/p2p-browser.html
+147 silly gunzTarPerm modified mode [ 'test/p2p-browser.html', 420, 438 ]
+148 silly gentlyRm /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94/node_modules is being purged
+149 verbose gentlyRm don't care about contents; nuking /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94/node_modules
+150 silly doParallel preinstall 1
+151 silly preinstall webrtc-native@1.4.0 /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94
+152 info lifecycle webrtc-native@1.4.0~preinstall: webrtc-native@1.4.0
+153 silly lifecycle webrtc-native@1.4.0~preinstall: no script for preinstall, continuing
+154 silly doReverseSerial remove 0
+155 silly doSerial move 0
+156 silly doSerial finalize 1
+157 silly finalize /mnt/c/Users/Robin Lunde/node_modules/webrtc-native
+158 silly doSerial build 1
+159 silly build webrtc-native@1.4.0
+160 info linkStuff webrtc-native@1.4.0
+161 silly linkStuff webrtc-native@1.4.0 has /mnt/c/Users/Robin Lunde/node_modules as its parent node_modules
+162 verbose linkBins webrtc-native@1.4.0
+163 verbose linkMans webrtc-native@1.4.0
+164 silly doSerial global-link 0
+165 silly doParallel update-linked 0
+166 silly doSerial install 1
+167 silly install webrtc-native@1.4.0 /mnt/c/Users/Robin Lunde/node_modules/.staging/webrtc-native-d0128f94
+168 info lifecycle webrtc-native@1.4.0~install: webrtc-native@1.4.0
+169 verbose lifecycle webrtc-native@1.4.0~install: unsafe-perm in lifecycle true
+170 verbose lifecycle webrtc-native@1.4.0~install: PATH: /usr/share/npm/bin/node-gyp-bin:/mnt/c/Users/Robin Lunde/node_modules/webrtc-native/node_modules/.bin:/mnt/c/Users/Robin Lunde/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/ProgramData/Oracle/Java/javapath_target_607015312:/mnt/c/Program Files (x86)/Intel/iCLS Client:/mnt/c/Program Files/Intel/iCLS Client:/mnt/c/Windows/System32:/mnt/c/Windows:/mnt/c/Windows/System32/wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files/Java/jdk1.8.0_101/bin:/mnt/c/Program Files (x86)/GtkSharp/2.12/bin:/mnt/c/Program Files/OpenVPN/bin:/mnt/c/Program Files/nodejs:/mnt/c/Program Files (x86)/Skype/Phone:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Oracle/VirtualBox:/mnt/c/Program Files/cURL/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Users/Robin Lunde/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files (x86)/Nmap:/mnt/c/Users/Robin Lunde/AppData/Roaming/npm:/mnt/c/Program Files/nodejs
+171 verbose lifecycle webrtc-native@1.4.0~install: CWD: /mnt/c/Users/Robin Lunde/node_modules/webrtc-native
+172 silly lifecycle webrtc-native@1.4.0~install: Args: [ '-c', 'node scripts/install.js' ]
+173 silly lifecycle webrtc-native@1.4.0~install: Returned: code: 1  signal: null
+174 info lifecycle webrtc-native@1.4.0~install: Failed to exec install script
+175 verbose unlock done using /home/robin/.npm/_locks/staging-ace4431151218c34.lock for /mnt/c/Users/Robin Lunde/node_modules/.staging
+176 silly rollbackFailedOptional Starting
+177 silly rollbackFailedOptional Finishing
+178 silly runTopLevelLifecycles Starting
+179 silly runTopLevelLifecycles Finishing
+180 silly install printInstalled
+181 verbose stack Error: webrtc-native@1.4.0 install: `node scripts/install.js`
+181 verbose stack Exit status 1
+181 verbose stack     at EventEmitter.<anonymous> (/usr/share/npm/lib/utils/lifecycle.js:232:16)
+181 verbose stack     at emitTwo (events.js:87:13)
+181 verbose stack     at EventEmitter.emit (events.js:172:7)
+181 verbose stack     at ChildProcess.<anonymous> (/usr/share/npm/lib/utils/spawn.js:24:14)
+181 verbose stack     at emitTwo (events.js:87:13)
+181 verbose stack     at ChildProcess.emit (events.js:172:7)
+181 verbose stack     at maybeClose (internal/child_process.js:821:16)
+181 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+182 verbose pkgid webrtc-native@1.4.0
+183 verbose cwd /mnt/c/Users/Robin Lunde/Dropbox/School/Sem3/Project/webRTC_Test
+184 error Linux 4.4.0-43-Microsoft
+185 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install" "webrtc-native" "--save"
+186 error node v4.2.6
+187 error npm  v3.5.2
+188 error code ELIFECYCLE
+189 error webrtc-native@1.4.0 install: `node scripts/install.js`
+189 error Exit status 1
+190 error Failed at the webrtc-native@1.4.0 install script 'node scripts/install.js'.
+190 error Make sure you have the latest version of node.js and npm installed.
+190 error If you do, this is most likely a problem with the webrtc-native package,
+190 error not with npm itself.
+190 error Tell the author that this fails on your system:
+190 error     node scripts/install.js
+190 error You can get information on how to open an issue for this project with:
+190 error     npm bugs webrtc-native
+190 error Or if that isn't available, you can get their info via:
+190 error     npm owner ls webrtc-native
+190 error There is likely additional logging output above.
+191 verbose exit [ 1, true ]
