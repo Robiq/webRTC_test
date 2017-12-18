@@ -68,6 +68,7 @@ function gotMessageFromServer(message) {
         }
         if(++test>=6){
             updateHTML();
+            serverConnection.send(JSON.stringify({'log': log}));
         }
         start();
     }

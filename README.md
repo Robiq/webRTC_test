@@ -36,3 +36,9 @@
 6. Repeat [3.]-[5.] 4 times (5 times total), with different time-outs!
 7. Receive Client log over websocket
 8. Write Serverlog & Clientlog to file.
+
+
+
+require('scribe-js')(); //loads Scribe
+
+var console = process.console;
