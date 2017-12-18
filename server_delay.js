@@ -7,7 +7,8 @@ const WebSocketServer = WebSocket.Server;
 var serverID = 0;
 var uuid = 1;
 var conn = {}
-var log, clientLog = {};
+var log = {}; 
+var clientLog = {};
 var curUUID;
 var peerConnection;
 
@@ -46,6 +47,7 @@ wss.on('connection', function(ws) {
     ws.id = uuid++;
     ws.test=1;
     conn[ws.id] = ws;
+    log[curUUID] = "Start connection: " + ws.id+" \n";
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected!')
     curUUID = ws.id;
