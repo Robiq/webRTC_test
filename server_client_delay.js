@@ -6,7 +6,7 @@ const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 var serverID = 0;
 var uuid = 1;
-var conn = {}
+var conn = {};
 var log, clientLog = {};
 var curUUID;
 var peerConnection;
@@ -123,7 +123,7 @@ function runTest(){
         res = false;
     }
     //Send result to client
-    send conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
+    conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
     webRTCBegin();
 }
 

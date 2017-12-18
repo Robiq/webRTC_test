@@ -132,7 +132,7 @@ function runTest(){
         res = false;
     }
     //Send result to client
-    send conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
+    conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
     webRTCBegin();
 }
 

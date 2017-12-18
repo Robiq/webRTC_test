@@ -7,7 +7,7 @@
     "test": "-t",
     "start": "node server_client_delay.js",
     "delay client": "node server_delay.js",
-    "delay both": "node server_both.js",
+    "delay both": "node server_both.js"
   },
   "repository": {
     "type": "git",
