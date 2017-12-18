@@ -1,6 +1,7 @@
 var peerConnection;
 var uuid=-1;
 var test = 1;
+var log;
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -46,6 +47,14 @@ function gotMessageFromServer(message) {
             // Only create answers in response to offers
             if(signal.sdp.type == 'offer') {
                 //SENDS ANSWER
+                switch(test){
+                    case 1: continue;
+                    case 2: await sleep(500);
+                    case 3: await sleep(1000);
+                    case 4: await sleep(2000);
+                    case 5: await sleep(10000);
+                    default: errorHandler("Testcase not recognized");
+                }
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
             }
         }).catch(errorHandler);
@@ -66,7 +75,7 @@ function gotMessageFromServer(message) {
 
 //Answers the offer
 function createdDescription(description) {
-    console.log('got description', description);
+    errorHandler('got description', description);
 
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
@@ -80,10 +89,17 @@ function gotIceCandidate(event) {
 }
 
 function errorHandler(error) {
+    var dt = new Date();
+    var utcDate = dt.toUTCString();
+    log += utcDate + ": " + error;
     console.log(error);
 }
 //Updates html
 function updateHTML(){
     let el = document.getElementById(test);
     el.className = '';
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

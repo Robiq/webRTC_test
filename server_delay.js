@@ -92,6 +92,14 @@ function webRTCBegin(ws){
 
 //Runs the current test
 function runTest(){
+    switch(test){
+        case 1: continue;
+        case 2: await sleep(500);
+        case 3: await sleep(1000);
+        case 4: await sleep(2000);
+        case 5: await sleep(10000);
+        default: errorHandler("Testcase not recognized");
+    }
 
     //RTCPeerConnection.connectionState
 }
@@ -101,6 +109,10 @@ function errorHandler(error) {
     var utcDate = dt.toUTCString();
     log += utcDate + ": " + error;
     console.log(error);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 errorHandler('Server running. Visit https://localhost:' + HTTPS_PORT + ' in Firefox/Chrome (note the HTTPS; there is no HTTP -> HTTPS redirect!)');

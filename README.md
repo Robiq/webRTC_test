@@ -1,15 +1,31 @@
 # Test-framework for connection-offers
 
-### Plan:
+## Plan:
+
+### Tests:
+
+1. Timeout is server-side (after offer created)
+2. Timeout is client-side (after answer created)
+3. Timeout is both client- & server-side (after offer created & answer created)
+
+#### Timeouts:
+1. 0.5 sec
+2. 1.0 sec
+3. 2.0 sec
+4. 5.0 sec
+5. 10.0 sec
+
+### Setup:
 
 #####	CLIENT:
 1. Have client connect and update html
 2. Have client start tests. UPDATE html
-3. Have client notify of completed tests.
+3. Have client notify when a tests completes.
 4. Client sends log to server.
 5. Client updates HTML says test is over
 
 	Use updateHTML() to make each test visible. Update 'test' variable every time a new test is ran.
+	If interrupt: send current client-log to server and close!
 
 #####	SERVER:
 1. Send html and js to client
