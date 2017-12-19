@@ -4,10 +4,12 @@ const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
+const wrtc = require('webrtc-native');
 var serverID = 0;
 var uuid = 1;
 var conn = {};
-var log, clientLog = {};
+var log = {}
+var clientLog = {};
 var curUUID;
 var peerConnection;
 
@@ -27,7 +29,7 @@ var handleRequest = function(request, response) {
     if(request.url === '/') {
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end(fs.readFileSync('Client/index_delay.html'));
-    } else if(request.url === '/webrtc.js') {
+    } else if(request.url === '/client_delay.js') {
         response.writeHead(200, {'Content-Type': 'application/javascript'});
         response.end(fs.readFileSync('Client/client_delay.js'));
     }
@@ -46,6 +48,7 @@ wss.on('connection', function(ws) {
     ws.id = uuid++;
     ws.test=1;
     conn[ws.id] = ws;
+    log[curUUID] = "Start connection: " + ws.id+" \n";
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected!')
     curUUID = ws.id;
@@ -72,9 +75,9 @@ function handleMessage(signal){
 
 //Starts webRTC connection
 function webRTCBegin(){
+    var ws = conn[curUUID];
     ws.test++;
     if(test < 6){
-        var ws = conn[curUUID];
         var peerConnectionConfig = {
             'iceServers': [
                 {'urls': 'stun:stun.services.mozilla.com'},

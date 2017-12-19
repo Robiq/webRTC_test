@@ -4,6 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
+const wrtc = require('webrtc-native');
 var serverID = 0;
 var uuid = 1;
 var conn = {}
@@ -27,7 +28,7 @@ var handleRequest = function(request, response) {
     if(request.url === '/') {
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end(fs.readFileSync('Client/index_delay.html'));
-    } else if(request.url === '/webrtc.js') {
+    } else if(request.url === '/client_delay.js') {
         response.writeHead(200, {'Content-Type': 'application/javascript'});
         response.end(fs.readFileSync('Client/client_delay.js'));
     }
@@ -72,9 +73,9 @@ function handleMessage(signal){
 
 //Starts webRTC connection
 function webRTCBegin(){
+    var ws = conn[curUUID];
     ws.test++;
     if(test < 6){
-        var ws = conn[curUUID];
         var peerConnectionConfig = {
             'iceServers': [
                 {'urls': 'stun:stun.services.mozilla.com'},
@@ -103,7 +104,7 @@ function gotIceCandidate(event) {
     }
 }
 
-function createDescription(description) {
+async function createDescription(description) {
     //Add delay
     switch(test){
         case 1: continue;
@@ -148,6 +149,10 @@ function write(){
     let conID = curUUID;
     let curLog = log[conID] + "--------------------------------------------\nClient log:\n"+clientLog[conID];
     fs.appendFileSync(conID+"_log.txt", )
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 errorHandler('Server running. Visit https://localhost:' + HTTPS_PORT + ' in Firefox/Chrome (note the HTTPS; there is no HTTP -> HTTPS redirect!)');

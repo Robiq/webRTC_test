@@ -4,6 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
+const wrtc = require('webrtc-native');
 var serverID = 0;
 var uuid = 1;
 var conn = {}
@@ -24,13 +25,16 @@ const serverConfig = {
 var handleRequest = function(request, response) {
     // Render the single client html file for any request the HTTP server receives
     errorHandler('request received: ' + request.url);
-
+    try{
     if(request.url === '/') {
         response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(fs.readFileSync('Client/index_delay.html'));
-    } else if(request.url === '/webrtc.js') {
+        response.end(fs.readFileSync('Client/index.html'));
+    } else if(request.url === '/client.js') {
         response.writeHead(200, {'Content-Type': 'application/javascript'});
-        response.end(fs.readFileSync('Client/client_delay.js'));
+        response.end(fs.readFileSync('Client/client.js'));
+    }
+    }catch(e){
+        errorHandler("Exception when serving file: ", e);
     }
 };
 
@@ -74,16 +78,16 @@ function handleMessage(signal){
 
 //Starts webRTC connection
 function webRTCBegin(){
+    var ws = conn[curUUID];
     ws.test++;
-    if(test < 6){
-        var ws = conn[curUUID];
+    if(ws.test < 6){
         var peerConnectionConfig = {
             'iceServers': [
                 {'urls': 'stun:stun.services.mozilla.com'},
                 {'urls': 'stun:stun.l.google.com:19302'},
             ]
         };
-        peerConnection = new RTCPeerConnection(peerConnectionConfig);
+        peerConnection = new wrtc,RTCPeerConnection(peerConnectionConfig);
 
         //Takes care of ice-candidates
         peerConnection.onicecandidate = gotIceCandidate;
@@ -105,7 +109,7 @@ function gotIceCandidate(event) {
     }
 }
 
-function createDescription(description) {
+async function createDescription(description) {
     //Add delay
     switch(test){
         case 1: continue;
@@ -150,6 +154,10 @@ function write(){
     let conID = curUUID;
     let curLog = log[conID] + "--------------------------------------------\nClient log:\n"+clientLog[conID];
     fs.appendFileSync(conID+"_log.txt", )
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 errorHandler('Server running. Visit https://localhost:' + HTTPS_PORT + ' in Firefox/Chrome (note the HTTPS; there is no HTTP -> HTTPS redirect!)');
