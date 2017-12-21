@@ -4,7 +4,6 @@
   "description": "Testing framework for webRTC connection offers",
   "main": "server_delay.js",
   "scripts": {
-    "test": "-t",
     "start": "node server_delay.js",
     "delay client": "node server_client_delay.js",
     "delay both": "node server_both.js"
@@ -26,6 +25,7 @@
   },
   "homepage": "https://github.com/Robiq/webRTC_test#readme",
   "dependencies": {
+    "wrtc": "0.0.63",
     "ws": "^3.3.2"
   }
 }

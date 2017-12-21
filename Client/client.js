@@ -70,6 +70,7 @@ function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
+        errorHandler({'sdp': peerConnection.localDescription, 'uuid': uuid});
     }).catch(errorHandler);
 }
 

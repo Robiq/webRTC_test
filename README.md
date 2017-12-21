@@ -45,3 +45,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
 require('scribe-js')(); //loads Scribe
 
 var console = process.console;
+
+https://github.com/js-platform/node-webrtc
+
+https://github.com/shanet/WebRTC-Example

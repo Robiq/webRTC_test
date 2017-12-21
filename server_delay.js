@@ -4,7 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
-const wrtc = require('webrtc-native');
+const wrtc = require('wrtc');
 var serverID = 0;
 var uuid = 1;
 var conn = {}
@@ -24,7 +24,7 @@ const serverConfig = {
 // Create a server for the client html page
 var handleRequest = function(request, response) {
     // Render the single client html file for any request the HTTP server receives
-    errorHandler('request received: ' + request.url);
+    errorHandler('request received(http): ' + request.url);
     try{
     if(request.url === '/') {
         response.writeHead(200, {'Content-Type': 'text/html'});
@@ -34,7 +34,7 @@ var handleRequest = function(request, response) {
         response.end(fs.readFileSync('Client/client.js'));
     }
     }catch(e){
-        errorHandler("Exception when serving file: ", e);
+        errorHandler("Exception when serving file(http): ", e);
     }
 };
 
@@ -53,17 +53,21 @@ wss.on('connection', function(ws) {
     conn[ws.id] = ws;
     log[curUUID] = "Start connection: " + ws.id+" \n";
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
-    errorHandler('Client ' + ws.id + ' connected!')
+    errorHandler('Client ' + ws.id + ' connected! (ws)')
     curUUID = ws.id;
     //CREATE webRTC OFFER 1!
     webRTCBegin();
     //Message received in server!
-    ws.on('message', handleMessage(message));
+    ws.on('message', function(message){
+        message = JSON.parse(message);
+        errorHandler('Got message: ', message);
+        handleMessage(message);
+    });
 });
 
 //Handles messages from clients
 function handleMessage(signal){
-    errorHandler('received: %s', signal);
+    errorHandler('Signal received(ws): ', signal);
     curUUID = signal.uuid;
     if(signal.sdp) {
         //Once connection is set up - DO TEST!
@@ -73,6 +77,8 @@ function handleMessage(signal){
     }else if(signal.log) {
         //Save clients log
         clientLog[signal.uuid]=signal.log;
+    }else{
+        errorHandler('Unknown signal received(ws): ', signal);
     }
 }
 
@@ -87,14 +93,14 @@ function webRTCBegin(){
                 {'urls': 'stun:stun.l.google.com:19302'},
             ]
         };
-        peerConnection = new wrtc,RTCPeerConnection(peerConnectionConfig);
+        peerConnection = new wrtc.RTCPeerConnection(peerConnectionConfig);
 
         //Takes care of ice-candidates
         peerConnection.onicecandidate = gotIceCandidate;
 
         //Creates offer
         peerConnection.createOffer().then(function (description){
-            errorHandler('got description', description);
+            errorHandler('got description(webRTC): ', description);
 
             peerConnection.setLocalDescription(description).then(createDescription).catch(errorHandler);
         }).catch(errorHandler);
@@ -111,13 +117,13 @@ function gotIceCandidate(event) {
 
 async function createDescription(description) {
     //Add delay
-    switch(test){
-        case 1: continue;
-        case 2: await sleep(500);
-        case 3: await sleep(1000);
-        case 4: await sleep(2000);
-        case 5: await sleep(10000);
-        default: errorHandler("Testcase not recognized");
+    switch(conn[curUUID].test){
+        case 1: break;;
+        case 2: await sleep(500); break;
+        case 3: await sleep(1000); break;
+        case 4: await sleep(2000); break;
+        case 5: await sleep(10000); break;
+        default: errorHandler("Testcase not recognized!");
     }
     //SENDS Offer
     conn[curUUID].send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': serverID}));
