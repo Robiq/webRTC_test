@@ -11,7 +11,10 @@ var conn = {}
 var log = {}; 
 var clientLog = {};
 var curUUID;
-var peerConnection;
+var RTCPeerConnection = wrtc.RTCPeerConnection;
+var RTCSessionDescription = wrtc.RTCSessionDescription;
+var RTCIceCandidate = wrtc.RTCIceCandidate
+var prevDt;
 
 // Yes, SSL is required
 const serverConfig = {
@@ -51,32 +54,33 @@ wss.on('connection', function(ws) {
     ws.id = uuid++;
     ws.test=1;
     conn[ws.id] = ws;
-    log[curUUID] = "Start connection: " + ws.id+" \n";
+    curUUID = ws.id;
+    log[curUUID] = "Start connection: " + ws.id+" \n\n";
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
-    curUUID = ws.id;
     //CREATE webRTC OFFER 1!
     webRTCBegin();
     //Message received in server!
     ws.on('message', function(message){
         message = JSON.parse(message);
-        errorHandler('Got message: ', message);
+        errorHandler('Got message(ws): ', message);
         handleMessage(message);
     });
 });
 
 //Handles messages from clients
 function handleMessage(signal){
-    errorHandler('Signal received(ws): ', signal);
     curUUID = signal.uuid;
     if(signal.sdp) {
         //Once connection is set up - DO TEST!
-        peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(runTest(message.uuid)).catch(errorHandler);
-    }else if(signal.ice) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).catch(errorHandler);
+        prevDt = new Date();
+        runTest();
     }else if(signal.log) {
         //Save clients log
+        errorHandler("Received client log from client " + curUUID);
         clientLog[signal.uuid]=signal.log;
+        write();
     }else{
         errorHandler('Unknown signal received(ws): ', signal);
     }
@@ -87,22 +91,20 @@ function webRTCBegin(){
     var ws = conn[curUUID];
     ws.test++;
     if(ws.test < 6){
-        var peerConnectionConfig = {
-            'iceServers': [
-                {'urls': 'stun:stun.services.mozilla.com'},
-                {'urls': 'stun:stun.l.google.com:19302'},
-            ]
-        };
-        peerConnection = new wrtc.RTCPeerConnection(peerConnectionConfig);
+        var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
+        
+        peerConnection = new RTCPeerConnection(peerConnectionConfig);
 
         //Takes care of ice-candidates
         peerConnection.onicecandidate = gotIceCandidate;
-
+        //Logs ICE change
+        peerConnection.oniceconnectionstatechange = iceChange;
+        //datachannel
+        peerConnection.createDataChannel('test', {reliable: true})
         //Creates offer
         peerConnection.createOffer().then(function (description){
             errorHandler('got description(webRTC): ', description);
-
-            peerConnection.setLocalDescription(description).then(createDescription).catch(errorHandler);
+            peerConnection.setLocalDescription(description).catch(errorHandler);
         }).catch(errorHandler);
     }else{
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
@@ -110,12 +112,26 @@ function webRTCBegin(){
 }
 
 function gotIceCandidate(event) {
-    if(event.candidate != null) {
-        conn[curUUID].send(JSON.stringify({'ice': event.candidate, 'uuid': uuid}));
+    if(event.candidate == null) {
+        errorHandler('ICE done!');
+        createDescription();
     }
 }
 
-async function createDescription(description) {
+function iceChange(event){
+    let state = peerConnection.iceConnectionState;
+    errorHandler("New ICE state: ", state);
+    if(state == 'connected'){
+        var dt = new Date();
+        dt = dt - prevDt;
+        let sec = Math.floor(dt/1000);
+        errorHandler('It took ' + sec + ' sec to reach connected state.');
+        //TEST TODO Remove!
+        webRTCBegin();
+    }
+}
+
+async function createDescription() {
     //Add delay
     switch(conn[curUUID].test){
         case 1: break;;
@@ -125,41 +141,61 @@ async function createDescription(description) {
         case 5: await sleep(10000); break;
         default: errorHandler("Testcase not recognized!");
     }
+    
     //SENDS Offer
     conn[curUUID].send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': serverID}));
 }
 
+async function buffer(){
+    await sleep(15000);
+}
+
 //Runs the current test
 function runTest(){
+
+    //Need some sort of wait buffer here to allow ICE-candidates to finish negotiation!
+
     var res = 0;
     //Read connection state
     let state = peerConnection.iceConnectionState;
     //Log it
-    errorHandler(state);
+    errorHandler('State of connection: ', state);
     //Test connection state
     if(state == 'connected'){
         //Connected means goodie!
+        errorHandler('Test ' + conn[curUUID].test + ' succeeded!');
         res = true;
     }else{
+        errorHandler('Test ' + conn[curUUID].test + ' failed!');
         res = false;
     }
     //Send result to client
     conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
-    webRTCBegin();
+    //TEST TODO re-enable
+    //webRTCBegin();
 }
 
-function errorHandler(error) {
+function errorHandler(error, obj=null) {
     var dt = new Date();
     var utcDate = dt.toUTCString();
-    log[curUUID] += utcDate + ": " + error+"\n";
-    console.log(error);
+    if(obj){
+        obj=JSON.stringify(obj);
+        log[curUUID] += utcDate + ":\n " + error + obj + "\n\n";   
+        console.log(error + obj);
+    }else{
+        log[curUUID] += utcDate + ":\n " + error+"\n\n";
+        console.log(error);
+    }
 }
 
 
 function write(){
+    console.warn(curUUID);
+    var dt = new Date();
+    var utcDate = dt.toUTCString();
     let conID = curUUID;
     let curLog = log[conID] + "--------------------------------------------\nClient log:\n"+clientLog[conID];
-    fs.appendFileSync(conID+"_log.txt", )
+    fs.appendFileSync("Logs/"+utcDate+"_"+conID+"_log.txt", curLog);
 }
 
 function sleep(ms) {

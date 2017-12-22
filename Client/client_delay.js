@@ -46,15 +46,6 @@ function gotMessageFromServer(message) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             // Only create answers in response to offers
             if(signal.sdp.type == 'offer') {
-                //SENDS ANSWER
-                switch(test){
-                    case 1: continue;
-                    case 2: await sleep(500);
-                    case 3: await sleep(1000);
-                    case 4: await sleep(2000);
-                    case 5: await sleep(10000);
-                    default: errorHandler("Testcase not recognized");
-                }
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
             }
         }).catch(errorHandler);
@@ -77,6 +68,16 @@ function gotMessageFromServer(message) {
 //Answers the offer
 function createdDescription(description) {
     errorHandler('got description', description);
+
+    //SENDS ANSWER
+    switch(test){
+        case 1: break;
+        case 2: await sleep(500); break;
+        case 3: await sleep(1000); break;
+        case 4: await sleep(2000); break;
+        case 5: await sleep(10000); break;
+        default: errorHandler("Testcase not recognized");
+    }
 
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));

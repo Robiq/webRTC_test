@@ -1,13 +1,9 @@
 var peerConnection;
 var uuid=-1;
 var test = 1;
+var log='';
 
-var peerConnectionConfig = {
-    'iceServers': [
-        {'urls': 'stun:stun.services.mozilla.com'},
-        {'urls': 'stun:stun.l.google.com:19302'},
-    ]
-};
+var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 
 //Activates when page is loaded
 function pageReady() {
@@ -23,6 +19,7 @@ function pageReady() {
 
 //Starts peer connection
 function start() {
+    errorHandler("Running test: " + test);
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
 }
@@ -49,16 +46,16 @@ function gotMessageFromServer(message) {
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
             }
         }).catch(errorHandler);
-    //Receive ICE candidate
-    } else if(signal.ice) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
-    //Reset for new test
     } else if(signal.reset){
         if(signal.success){
+            errorHandler('Test '+ test + 'succeeded');
             updateHTML();
+        }else{
+            errorHandler('Test '+ test + ' failed');       
         }
         if(++test>=6){
             updateHTML();
+            serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
         }
         start();
     }
@@ -66,23 +63,34 @@ function gotMessageFromServer(message) {
 
 //Answers the offer
 function createdDescription(description) {
-    console.log('got description', description);
+    errorHandler('Created description', description);
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
-        errorHandler({'sdp': peerConnection.localDescription, 'uuid': uuid});
+        errorHandler('Local description set!');
     }).catch(errorHandler);
 }
 
 function gotIceCandidate(event) {
-    if(event.candidate != null) {
-        serverConnection.send(JSON.stringify({'ice': event.candidate, 'uuid': uuid}));
+    if(event.candidate == null){
+        errorHandler('ICE done. Answer: ', peerConnection.localDescription);
+        //Add delay here!
+        serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
     }
 }
 
-function errorHandler(error) {
-    console.log(error);
+function errorHandler(error, obj=null) {
+    var dt = new Date();
+    var utcDate = dt.toUTCString();
+    if(obj){
+        obj=JSON.stringify(obj);
+        log += utcDate + ":\n " + error + obj + '\n\n';
+        console.log(error + obj);
+    }else{
+        log += utcDate + ":\n " + error+'\n\n';
+        console.log(error);
+    }
 }
+
 //Updates html
 function updateHTML(){
     let el = document.getElementById(test);
