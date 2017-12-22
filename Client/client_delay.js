@@ -67,7 +67,7 @@ function gotMessageFromServer(message) {
 
 //Answers the offer
 function createdDescription(description) {
-    errorHandler('got description', description);
+    errorHandler('Created description', description);
 
     //SENDS ANSWER
     switch(test){
@@ -81,6 +81,7 @@ function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
+        errorHandler('Local description set!');
     }).catch(errorHandler);
 }
 
