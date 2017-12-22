@@ -75,7 +75,8 @@ function handleMessage(signal){
         //Once connection is set up - DO TEST!
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).catch(errorHandler);
         prevDt = new Date();
-        runTest();
+        //Need short wait here to allow ICE-candidates to finish negotiation!
+        setTimeout(runTest, 1000);
     }else if(signal.log) {
         //Save clients log
         errorHandler("Received client log from client " + curUUID);
@@ -125,9 +126,7 @@ function iceChange(event){
         var dt = new Date();
         dt = dt - prevDt;
         let sec = Math.floor(dt/1000);
-        errorHandler('It took ' + sec + ' sec to reach connected state.');
-        //TEST TODO Remove!
-        webRTCBegin();
+        errorHandler('It took ' + sec + ' sec to reach connected state.');        
     }
 }
 
@@ -141,20 +140,13 @@ async function createDescription() {
         case 5: await sleep(10000); break;
         default: errorHandler("Testcase not recognized!");
     }
-    
+    errorHandler('Sending offer!');
     //SENDS Offer
     conn[curUUID].send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': serverID}));
 }
 
-async function buffer(){
-    await sleep(15000);
-}
-
 //Runs the current test
 function runTest(){
-
-    //Need some sort of wait buffer here to allow ICE-candidates to finish negotiation!
-
     var res = 0;
     //Read connection state
     let state = peerConnection.iceConnectionState;
@@ -171,8 +163,7 @@ function runTest(){
     }
     //Send result to client
     conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
-    //TEST TODO re-enable
-    //webRTCBegin();
+    webRTCBegin();
 }
 
 function errorHandler(error, obj=null) {

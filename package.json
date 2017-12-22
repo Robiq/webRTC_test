@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server_delay.js",
     "delay client": "node server_client_delay.js",
-    "delay both": "node server_both.js"
+    "delay both": "node server_both.js",
+    "clean": "cd ./Logs && rm * && cd .."
   },
   "repository": {
     "type": "git",

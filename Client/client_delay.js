@@ -55,7 +55,10 @@ function gotMessageFromServer(message) {
     //Reset for new test
     } else if(signal.reset){
         if(signal.success){
+            errorHandler('Test '+ test + ' succeeded');
             updateHTML();
+        } else{
+            errorHandler('Test '+ test + ' failed');       
         }
         if(++test>=6){
             updateHTML();

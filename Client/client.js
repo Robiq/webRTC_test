@@ -2,6 +2,7 @@ var peerConnection;
 var uuid=-1;
 var test = 1;
 var log='';
+var serverConnection;
 
 var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 
@@ -25,7 +26,12 @@ function start() {
 }
 
 function gotMessageFromServer(message) {
-    if(!peerConnection) start();
+    if(!peerConnection){
+        start();
+        updateHTML();
+        test++;
+    } 
+        
 
     var signal = JSON.parse(message.data);
 
@@ -48,12 +54,12 @@ function gotMessageFromServer(message) {
         }).catch(errorHandler);
     } else if(signal.reset){
         if(signal.success){
-            errorHandler('Test '+ test + 'succeeded');
+            errorHandler('Test '+ test + ' succeeded');
             updateHTML();
         }else{
             errorHandler('Test '+ test + ' failed');       
         }
-        if(++test>=6){
+        if(++test>=7){
             updateHTML();
             serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
         }
@@ -93,6 +99,9 @@ function errorHandler(error, obj=null) {
 
 //Updates html
 function updateHTML(){
-    let el = document.getElementById(test);
-    el.className = '';
+    errorHandler('Displaying test ' + test + ' succeeded');
+    if(test < 8){
+        let el = document.getElementById(test);
+        el.className = '';
+    }
 }
