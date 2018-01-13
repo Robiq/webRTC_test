@@ -53,6 +53,7 @@ var wss = new WebSocketServer({server: httpsServer});
 wss.on('connection', function(ws) {
     ws.id = uuid++;
     ws.test=1;
+    ws.delay=true;
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
@@ -107,7 +108,10 @@ function webRTCBegin(){
             errorHandler('got description(webRTC): ', description);
             peerConnection.setLocalDescription(description).catch(errorHandler);
         }).catch(errorHandler);
-    }else{
+    } else if(ws.test == 6){
+        ws.test=1;
+        ws.delay=!ws.delay;
+    } else{
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
     }
 }
@@ -131,14 +135,17 @@ function iceChange(event){
 }
 
 async function createDescription() {
-    //Add delay
-    switch(conn[curUUID].test){
-        case 1: break;;
-        case 2: await sleep(500); break;
-        case 3: await sleep(1000); break;
-        case 4: await sleep(2000); break;
-        case 5: await sleep(10000); break;
-        default: errorHandler("Testcase not recognized!");
+    //Add delay if Server-delay is supposed to be on!
+    if(conn[curUUID].delay){
+        //Delay currently from .5 - 10 sec
+        switch(conn[curUUID].test){
+            case 1: break;
+            case 2: await sleep(500); break;
+            case 3: await sleep(1000); break;
+            case 4: await sleep(2000); break;
+            case 5: await sleep(10000); break;
+            default: errorHandler("Testcase not recognized!");
+        }
     }
     errorHandler('Sending offer!');
     //SENDS Offer

@@ -3,6 +3,7 @@ var uuid=-1;
 var test = 1;
 var log='';
 var serverConnection;
+var delay=false;
 
 var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 
@@ -59,7 +60,20 @@ function gotMessageFromServer(message) {
         }else{
             errorHandler('Test '+ test + ' failed');       
         }
-        if(++test>=7){
+
+        //Handling new tests/finished testing
+        if(++test == 7){
+            updateHTML();
+            document.getElementById("T2").className = '';
+            delay=true;
+            test++;
+
+        }else if(test == 13){
+            updateHTML();
+            document.getElementById("T3").className = '';
+            test++;
+
+        }else if(test>=20){
             updateHTML();
             serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
         }
@@ -79,7 +93,18 @@ function createdDescription(description) {
 function gotIceCandidate(event) {
     if(event.candidate == null){
         errorHandler('ICE done. Answer: ', peerConnection.localDescription);
-        //Add delay here!
+        //SENDS ANSWER
+        if(delay){
+        //Delay currently from .5 - 10 sec
+            switch(test){
+                case 1: break;
+                case 2: await sleep(500); break;
+                case 3: await sleep(1000); break;
+                case 4: await sleep(2000); break;
+                case 5: await sleep(10000); break;
+                default: errorHandler("Testcase not recognized");
+            }
+        }
         serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
     }
 }
@@ -100,8 +125,12 @@ function errorHandler(error, obj=null) {
 //Updates html
 function updateHTML(){
     errorHandler('Displaying test ' + test + ' succeeded');
-    if(test < 8){
+    if(test < 21){
         let el = document.getElementById(test);
         el.className = '';
     }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
