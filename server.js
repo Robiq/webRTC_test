@@ -201,3 +201,6 @@ function sleep(ms) {
 }
 
 errorHandler('Server running. Visit https://localhost:' + HTTPS_PORT + ' in Firefox/Chrome (note the HTTPS; there is no HTTP -> HTTPS redirect!)');
+
+//TODO
+//Need logging of ONLY success / fail in separate doc, so it is easy to analyze!
