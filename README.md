@@ -49,3 +49,9 @@ var console = process.console;
 https://github.com/js-platform/node-webrtc
 
 https://github.com/shanet/WebRTC-Example
+
+Server addresses:
+4:
+203.178.143.47
+6:
+2001:200:0:8801:203:178:143:47/64
