@@ -10,6 +10,7 @@ var uuid = 1;
 var conn = {}
 var log = {}; 
 var clientLog = {};
+var testLog = {};
 var curUUID;
 var RTCPeerConnection = wrtc.RTCPeerConnection;
 var RTCSessionDescription = wrtc.RTCSessionDescription;
@@ -54,9 +55,11 @@ wss.on('connection', function(ws) {
     ws.id = uuid++;
     ws.test=1;
     ws.delay=true;
+    ws.reset=0;
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
+    testLog[curUUID] = '';
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
     //CREATE webRTC OFFER 1!
@@ -109,9 +112,11 @@ function webRTCBegin(){
             peerConnection.setLocalDescription(description).catch(errorHandler);
         }).catch(errorHandler);
     } else if(ws.test == 6){
-        ws.test=1;
+        ws.reset+=1;
+        ws.test=0;
         ws.delay=!ws.delay;
-    } else{
+        webRTCBegin();
+    } else if (ws.test>5 && ws.reset >=2){
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
     }
 }
@@ -163,9 +168,11 @@ function runTest(){
     if(state == 'connected'){
         //Connected means goodie!
         errorHandler('Test ' + conn[curUUID].test + ' succeeded!');
+        testLog[curUUID]+='Test '+ conn[curUUID].test + ' succeeded!\n';
         res = true;
     }else{
         errorHandler('Test ' + conn[curUUID].test + ' failed!');
+        testLog[curUUID]+='Test '+ conn[curUUID].test + ' failed!\n';
         res = false;
     }
     //Send result to client
@@ -194,6 +201,7 @@ function write(){
     let conID = curUUID;
     let curLog = log[conID] + "--------------------------------------------\nClient log:\n"+clientLog[conID];
     fs.appendFileSync("Logs/"+utcDate+"_"+conID+"_log.txt", curLog);
+    fs.appendFileSync("Logs/"+conID+"_res.txt", testLog[conID]);
 }
 
 function sleep(ms) {

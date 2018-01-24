@@ -56,4 +56,15 @@ Server addresses:
 6:
 2001:200:0:8801:203:178:143:47/64
 
-FAIL2BAN!!!!
+DOES NOT TERMINATE AT RIGHT TIME! FIXXX
+NEED TO ADD SHORT DELAY! FIXX
+
+Changes to:
+/etc/network/interfaces
+
+/etc/dhcp/dhclient.conf
+
+/etc/resolvconf/resolv.conf.d/head
+/etc/resolv.conf
+
+sudo resolvconf -u

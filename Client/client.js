@@ -90,18 +90,23 @@ function createdDescription(description) {
     }).catch(errorHandler);
 }
 
-function gotIceCandidate(event) {
+async function gotIceCandidate(event) {
     if(event.candidate == null){
         errorHandler('ICE done. Answer: ', peerConnection.localDescription);
         //SENDS ANSWER
         if(delay){
         //Delay currently from .5 - 10 sec
             switch(test){
-                case 1: break;
-                case 2: await sleep(500); break;
-                case 3: await sleep(1000); break;
-                case 4: await sleep(2000); break;
-                case 5: await sleep(10000); break;
+                case 14:
+                case 8: await sleep(500); break;
+                case 15: 
+                case 9: await sleep(2000); break;
+                case 16: 
+                case 10: await sleep(5000); break;
+                case 17: 
+                case 11: await sleep(10000); break;
+                case 18: 
+                case 12: await sleep(30000); break;
                 default: errorHandler("Testcase not recognized");
             }
         }
