@@ -75,8 +75,8 @@ function gotMessageFromServer(message) {
 
         }else if(test>=19){
             updateHTML();
-            serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
             errorHandler('Testing finished!');
+            serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
         }
         start();
     }
@@ -120,10 +120,10 @@ function errorHandler(error, obj=null) {
     var utcDate = dt.toUTCString();
     if(obj){
         obj=JSON.stringify(obj);
-        log += utcDate + ":\n " + error + obj + '\n\n';
+        log += "["+utcDate + "]:\n " + error + obj + '\n';
         console.log(error + obj);
     }else{
-        log += utcDate + ":\n " + error+'\n\n';
+        log += "["+utcDate + "]:\n " + error+'\n';
         console.log(error);
     }
 }

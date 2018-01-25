@@ -30,13 +30,17 @@ var handleRequest = function(request, response) {
     // Render the single client html file for any request the HTTP server receives
     errorHandler('request received(http): ' + request.url);
     try{
-    if(request.url === '/') {
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(fs.readFileSync('Client/index.html'));
-    } else if(request.url === '/client.js') {
-        response.writeHead(200, {'Content-Type': 'application/javascript'});
-        response.end(fs.readFileSync('Client/client.js'));
-    }
+        if(request.url === '/') {
+            response.writeHead(200, {'Content-Type': 'text/html'});
+            response.end(fs.readFileSync('Client/index.html'));
+        } else if(request.url === '/client.js') {
+            response.writeHead(200, {'Content-Type': 'application/javascript'});
+            response.end(fs.readFileSync('Client/client.js'));
+        } else if (request.url === '/favicon.ico') {
+            response.writeHead(200, {'Content-Type': 'image/x-icon'} );
+            response.end();
+            console.log('favicon requested');
+        }
     }catch(e){
         errorHandler("Exception when serving file(http): ", e);
     }
@@ -59,7 +63,7 @@ wss.on('connection', function(ws) {
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
-    testLog[curUUID] = '';
+    testLog[curUUID]='Test '+ conn[curUUID].test + ' succeeded!\n';
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
     //CREATE webRTC OFFER 1!
@@ -115,7 +119,8 @@ function webRTCBegin(){
     } else if (ws.test>5 && ws.reset >=2){
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
     } else if(ws.test == 6){
-        errorHandler("\nTestset nr. " + ws.reset+1 + " finished!");
+        errorHandler("Testset nr. " + ws.reset+1 + " finished!");
+        testLog[curUUID]+=("Testset nr. " + ws.reset+1 + " finished!\n");
         ws.reset+=1;
         ws.test=0;
         ws.delay=!ws.delay;
@@ -187,21 +192,20 @@ function errorHandler(error, obj=null) {
     var utcDate = dt.toUTCString();
     if(obj){
         obj=JSON.stringify(obj);
-        log[curUUID] += utcDate + ":\n " + error + obj + "\n\n";   
+        log[curUUID] += "["+utcDate + "]:\n " + error + obj + "\n";   
         console.log(error + obj);
     }else{
-        log[curUUID] += utcDate + ":\n " + error+"\n\n";
+        log[curUUID] += "["+utcDate + "]:\n " + error+"\n";
         console.log(error);
     }
 }
 
 
 function write(){
-    console.warn(curUUID);
     var dt = new Date();
     var utcDate = dt.toUTCString();
     let conID = curUUID;
-    let curLog = log[conID] + "--------------------------------------------\nClient log:\n"+clientLog[conID];
+    let curLog = log[conID] + "--------------------------------------------\n\nClient log:\n-----------------\n"+clientLog[conID];
     fs.appendFileSync("Logs/"+utcDate+"_"+conID+"_log.txt", curLog);
     fs.appendFileSync("Logs/"+conID+"_res.txt", testLog[conID]);
 }
