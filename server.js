@@ -119,9 +119,9 @@ function webRTCBegin(){
     } else if (ws.test>5 && ws.reset >=2){
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
     } else if(ws.test == 6){
-        errorHandler("Testset nr. " + ws.reset+1 + " finished!");
-        testLog[curUUID]+=("Testset nr. " + ws.reset+1 + " finished!\n");
         ws.reset+=1;
+        errorHandler("Testset nr. " + ws.reset + " finished!");
+        testLog[curUUID]+=("Testset nr. " + ws.reset + " finished!\n");
         ws.test=0;
         ws.delay=!ws.delay;
         webRTCBegin();
