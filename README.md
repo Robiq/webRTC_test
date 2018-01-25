@@ -70,3 +70,12 @@ Changes to:
 sudo resolvconf -u
 
 sudo reboot
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+
+To remove page:
+sudo pm2 unstartup systemd
+
+
+CONFIGURE SSL FOR NGINX & NODEJS
+Then fix for python!
