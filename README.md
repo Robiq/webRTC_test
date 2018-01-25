@@ -57,7 +57,7 @@ Server addresses:
 2001:200:0:8801:203:178:143:47/64
 
 DOES NOT TERMINATE AT RIGHT TIME! FIXXX
-NEED TO ADD SHORT DELAY! FIXX
+NEED TO ADD SHORT DELAY! FIXXgit statu
 
 Changes to:
 /etc/network/interfaces
@@ -68,3 +68,5 @@ Changes to:
 /etc/resolv.conf
 
 sudo resolvconf -u
+
+sudo reboot

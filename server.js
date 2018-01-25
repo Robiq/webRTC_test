@@ -80,7 +80,8 @@ function handleMessage(signal){
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).catch(errorHandler);
         prevDt = new Date();
         //Need short wait here to allow ICE-candidates to finish negotiation!
-        setTimeout(runTest, 1000);
+        //Try with 0.5sec delay!
+        setTimeout(runTest, 500);
     }else if(signal.log) {
         //Save clients log
         errorHandler("Received client log from client " + curUUID);
@@ -111,13 +112,14 @@ function webRTCBegin(){
             errorHandler('got description(webRTC): ', description);
             peerConnection.setLocalDescription(description).catch(errorHandler);
         }).catch(errorHandler);
+    } else if (ws.test>5 && ws.reset >=2){
+        errorHandler("Test are done - logging for " + curUUID +" is finished!");
     } else if(ws.test == 6){
+        errorHandler("\nTestset nr. " + ws.reset+1 + " finished!");
         ws.reset+=1;
         ws.test=0;
         ws.delay=!ws.delay;
         webRTCBegin();
-    } else if (ws.test>5 && ws.reset >=2){
-        errorHandler("Test are done - logging for " + curUUID +" is finished!");
     }
 }
 
@@ -165,7 +167,7 @@ function runTest(){
     //Log it
     errorHandler('State of connection: ', state);
     //Test connection state
-    if(state == 'connected'){
+    if(state == 'connected' || state=="completed"){
         //Connected means goodie!
         errorHandler('Test ' + conn[curUUID].test + ' succeeded!');
         testLog[curUUID]+='Test '+ conn[curUUID].test + ' succeeded!\n';

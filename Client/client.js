@@ -73,7 +73,7 @@ function gotMessageFromServer(message) {
             document.getElementById("T3").className = '';
             test++;
 
-        }else if(test>=20){
+        }else if(test>=19){
             updateHTML();
             serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
         }
