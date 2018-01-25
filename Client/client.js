@@ -76,6 +76,7 @@ function gotMessageFromServer(message) {
         }else if(test>=19){
             updateHTML();
             serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+            errorHandler('Testing finished!');
         }
         start();
     }
@@ -95,7 +96,7 @@ async function gotIceCandidate(event) {
         errorHandler('ICE done. Answer: ', peerConnection.localDescription);
         //SENDS ANSWER
         if(delay){
-        //Delay currently from .5 - 10 sec
+        //Delay currently from .5 - 30 sec
             switch(test){
                 case 14:
                 case 8: await sleep(500); break;

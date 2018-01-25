@@ -144,13 +144,13 @@ function iceChange(event){
 async function createDescription() {
     //Add delay if Server-delay is supposed to be on!
     if(conn[curUUID].delay){
-        //Delay currently from .5 - 10 sec
+        //Delay currently from .5 - 30 sec
         switch(conn[curUUID].test){
-            case 1: break;
-            case 2: await sleep(500); break;
-            case 3: await sleep(1000); break;
-            case 4: await sleep(2000); break;
-            case 5: await sleep(10000); break;
+            case 1: await sleep(500); break;
+            case 2: await sleep(2000); break;
+            case 3: await sleep(5000); break;
+            case 4: await sleep(10000); break;
+            case 5: await sleep(30000); break;
             default: errorHandler("Testcase not recognized!");
         }
     }
