@@ -56,9 +56,6 @@ Server addresses:
 6:
 2001:200:0:8801:203:178:143:47/64
 
-DOES NOT TERMINATE AT RIGHT TIME! FIXXX
-NEED TO ADD SHORT DELAY! FIXXgit statu
-
 Changes to:
 /etc/network/interfaces
 
@@ -73,9 +70,14 @@ sudo reboot
 
 https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
 
+https://www.nginx.com/blog/free-certificates-lets-encrypt-and-nginx/
+
+sudo ln -s /etc/nginx/sites-available/NAME /etc/nginx/sites-enabled/NAME
+
 To remove page:
 sudo pm2 unstartup systemd
 
+sudo cat /var/log/nginx/error.log
 
-CONFIGURE SSL FOR NGINX & NODEJS
-Then fix for python!
+/etc/sites-available/ip is this server
+sudo ufw allow 8443

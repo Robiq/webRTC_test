@@ -1,7 +1,8 @@
 const HTTPS_PORT = 8443;
 
 const fs = require('fs');
-const https = require('https');
+const http = require('http');
+//const https = require('https');
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 const wrtc = require('wrtc');
@@ -46,7 +47,8 @@ var handleRequest = function(request, response) {
     }
 };
 
-var httpsServer = https.createServer(serverConfig, handleRequest);
+var httpsServer = http.createServer(handleRequest);
+//var httpsServer = https.createServer(serverConfig, handleRequest);
 httpsServer.listen(HTTPS_PORT, '0.0.0.0');
 
 // ----------------------------------------------------------------------------------------
@@ -149,13 +151,13 @@ function iceChange(event){
 async function createDescription() {
     //Add delay if Server-delay is supposed to be on!
     if(conn[curUUID].delay){
-        //Delay currently from .5 - 30 sec
+        //Delay currently from 5sec - 5 min
         switch(conn[curUUID].test){
-            case 1: await sleep(500); break;
-            case 2: await sleep(2000); break;
-            case 3: await sleep(5000); break;
-            case 4: await sleep(10000); break;
-            case 5: await sleep(30000); break;
+            case 1: await sleep(5000); break;
+            case 2: await sleep(30000); break;
+            case 3: await sleep(60000); break;
+            case 4: await sleep(120000); break;
+            case 5: await sleep(300000); break;
             default: errorHandler("Testcase not recognized!");
         }
     }

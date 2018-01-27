@@ -10,7 +10,7 @@ var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 //Activates when page is loaded
 function pageReady() {
 
-    serverConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
+    serverConnection = new WebSocket('ws://' + window.location.hostname + ':8443');
     serverConnection.onmessage = gotMessageFromServer;
 
     var constraints = {
@@ -99,15 +99,15 @@ async function gotIceCandidate(event) {
         //Delay currently from .5 - 30 sec
             switch(test){
                 case 14:
-                case 8: await sleep(500); break;
+                case 8: await sleep(5000); break;
                 case 15: 
-                case 9: await sleep(2000); break;
+                case 9: await sleep(30000); break;
                 case 16: 
-                case 10: await sleep(5000); break;
+                case 10: await sleep(60000); break;
                 case 17: 
-                case 11: await sleep(10000); break;
+                case 11: await sleep(120000); break;
                 case 18: 
-                case 12: await sleep(30000); break;
+                case 12: await sleep(300000); break;
                 default: errorHandler("Testcase not recognized");
             }
         }
