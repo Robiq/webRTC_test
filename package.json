@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Robiq/webRTC_test#readme",
   "dependencies": {
+    "node-pre-gyp": "^0.6.39",
     "wrtc": "0.0.63",
     "ws": "^3.3.2"
   }
