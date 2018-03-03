@@ -105,9 +105,9 @@ function handleMessage(signal){
 }
 
 function resetpeer(){
-    peerConnection.onicecandidate=null;
-    peerConnection.oniceconnectionstatechange=null;
-    peerConnection=null;
+    errorHandler('Reset peerConnection');
+    var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
+    peerConnection=new RTCPeerConnection(peerConnectionConfig);
 }
 
 //Starts webRTC connection
@@ -132,6 +132,8 @@ function webRTCBegin(){
         }).catch(errorHandler);
     } else if (ws.test>5 && ws.reset >=2){
         errorHandler("Test are done - logging for " + curUUID +" is finished!");
+        testLog[curUUID]+=("Testset nr. " + 3 + " finished!\n");
+        //write();
         //clearInterval(ws.keepAlive);
         resetpeer();
     } else if(ws.test == 6){
