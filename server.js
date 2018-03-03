@@ -54,18 +54,18 @@ var wss = new WebSocketServer({server: httpsServer});
 
 //First client connection
 wss.on('connection', function(ws) {
+    //Store connection creation time
+    var dt = new Date();
+    ws.utcDate ="[" + dt.toLocaleDateString() + "] [" + dt.toLocaleTimeString() + "]";
     ws.id = uuid++;
     ws.test=0;
     ws.reset=0;
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
-    testLog[curUUID]='Test '+ conn[curUUID].test + ' succeeded!\n';
+    testLog[curUUID]='User ' + ws.id + ' Time '+ws.utcDate +'\nTest '+ conn[curUUID].test + ' succeeded!\n';
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
-    //Store connection creation time
-    var dt = new Date();
-    ws.utcDate ="[" + dt.toLocaleDateString() + "] [" + dt.toLocaleTimeString() + "]";
     //Keep websocket alive
     //ws.keepAlive=setInterval(keepAlive, 90000, ws);
     //CREATE webRTC OFFER 1!
@@ -189,7 +189,7 @@ function runTest(){
         errorHandler('Test ' + conn[curUUID].test + ' failed!');
         var dt = new Date();
         var utcDate = "[" + dt.toLocaleDateString() + " | " + dt.toLocaleTimeString() + "]";
-        testLog[curUUID]+='Test '+ conn[curUUID].test + ' failed!\n User is: ' + curUUID + ' and time is: ' + utcDate+'\n';
+        testLog[curUUID]+='Test '+ conn[curUUID].test + ' failed! Time is: ' + utcDate+'\n';
         res = false;
     }
     peerConnection=null;

@@ -7,6 +7,26 @@ import re
 
 st=''
 
+def file_len(fname):
+    with open(fname) as f:
+        for i, l in enumerate(f):
+            pass
+    return i + 1
+
+def getres():
+	print 'Testcase 1:\n--------------'
+	print 'Tests done: %d'%(set1[1])
+	for x in range(1,6):
+		print 'Success rate for test %d is %0.2f'% (x, (float(r_set1[x])/float(set1[x])*100.00))
+	print '\nTestcase 2:\n--------------'
+	print 'Tests done: %d'%(set2[1])
+	for x in range(1,6):
+		print 'Success rate for test %d is %0.2f'% (x, (float(r_set2[x])/float(set2[x])*100.00))
+	print '\nTestcase 3:\n--------------'
+	print 'Tests done: %d'%(set3[1])
+	for x in range(1,6):
+		print 'Success rate for test %d is %0.2f'% (x, (float(r_set3[x])/float(set3[x])*100.00))
+
 def handlelines(curset, r_set, fi, line=None):
 	global st
 	s = r'^Test (\d) (\w+)!$'
@@ -24,6 +44,7 @@ def handlelines(curset, r_set, fi, line=None):
 		if res:
 			#if test 0 disregard
 			if res.group(1) != '0':
+				#print 'Test %s Res %s'%(res.group(1), res.group(2))
 				#add to total
 				curset[int(res.group(1))] += 1
 				#check for success
@@ -51,7 +72,7 @@ def handlelines(curset, r_set, fi, line=None):
 
 
 def findSet(line, fi):
-	print line
+	#print line
 	if line == 'Testset nr. 3 finished!\n':
 		handlelines(set1, r_set1, fi)
 	elif line == 'Testset nr. 2 finished!\n':
@@ -80,30 +101,33 @@ if __name__ == '__main__':
 	#Both
 	r_set3={ 1:0, 2:0, 3:0, 4:0, 5:0}
 
-	for filename in glob.glob('*_res.txt'):
+	for filename in glob.glob('./Logs/*_res.txt'):
 		print filename
-		fi = open(filename, 'r')
-		line=fi.readline()
-		st+=line
-		#print line
-		findSet(line, fi)
-		fi.close()
+		if file_len(filename) >= 19:
+			fi = open(filename, 'r')
+			line=fi.readline()
+			st+=line
+			#print line
+			findSet(line, fi)
+			st+="---------------------------------------\n"
+			print '------------------------------------------------\n'
+			fi.close()
 
-	fi = open("fullLog.txt", 'w')
+	fi = open("./Logs/fullLog.txt", 'w')
 	fi.write(st)
 	fi.close()
 
-	print ''
-	print 'Results'
-	print 'Server'
-	print set1
-	print 'Client'
-	print set2
-	print 'Both'
-	print set3
-	print 'Res Server'
-	print r_set1
-	print 'Res Client'
-	print r_set2
-	print 'Res Both'
-	print r_set3
+	#print 'Results'
+	#print 'Server'
+	#print set1
+	#print 'Client'
+	#print set2
+	#print 'Both'
+	#print set3
+	#print 'Res Server'
+	#print r_set1
+	#print 'Res Client'
+	#print r_set2
+	#print 'Res Both'
+	#print r_set3
+	getres()
