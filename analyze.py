@@ -18,18 +18,21 @@ def getres():
 	print 'Tests done: %d'%(set1[1])
 	for x in range(1,6):
 		print 'Success rate for test %d is %0.2f'% (x, (float(r_set1[x])/float(set1[x])*100.00))
+		#print r_set1[x], set1[x]
 	print '\nTestcase 2:\n--------------'
 	print 'Tests done: %d'%(set2[1])
 	for x in range(1,6):
 		print 'Success rate for test %d is %0.2f'% (x, (float(r_set2[x])/float(set2[x])*100.00))
+		#print r_set2[x], set2[x]
 	print '\nTestcase 3:\n--------------'
 	print 'Tests done: %d'%(set3[1])
 	for x in range(1,6):
 		print 'Success rate for test %d is %0.2f'% (x, (float(r_set3[x])/float(set3[x])*100.00))
+		#print r_set3[x], set3[x]
 
 def handlelines(curset, r_set, fi, line=None):
 	global st
-	s = r'^Test (\d) (\w+)!$'
+	s = r'^Test (\d) (\w+)!'
 	while 1:
 		#reads line if one isn't passed
 		if line == None:
@@ -42,6 +45,7 @@ def handlelines(curset, r_set, fi, line=None):
 		res = re.match(s, line, re.M)
 		#Add results
 		if res:
+			print line
 			#if test 0 disregard
 			if res.group(1) != '0':
 				#print 'Test %s Res %s'%(res.group(1), res.group(2))
@@ -51,6 +55,7 @@ def handlelines(curset, r_set, fi, line=None):
 				if res.group(2) == 'succeeded':
 					r_set[int(res.group(1))] += 1
 
+				#print curset[int(res.group(1))]
 				#next line
 				line=None
 			#If 0, just continue
