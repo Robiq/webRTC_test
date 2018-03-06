@@ -7,13 +7,27 @@ import re
 
 st=''
 
+def file_nocon(fname):
+	with open(fname) as f:
+		for l in f:
+#			print l
+			s = r'^Test (\d) (\w+)!'
+			res = re.match(s, l, re.M)
+			if res:
+				if res.group(1) != '0':
+					if res.group(2) == 'succeeded':
+						return False
+		return True
+
 def file_len(fname):
     with open(fname) as f:
+    	i=-1
         for i, l in enumerate(f):
             pass
     return i + 1
 
-def getres():
+def getres(nr):
+	print '%d files removed for not supporting webRTC or being incomplete'%(nr)
 	print 'Testcase 1:\n--------------'
 	print 'Tests done: %d'%(set1[1])
 	for x in range(1,6):
@@ -45,7 +59,7 @@ def handlelines(curset, r_set, fi, line=None):
 		res = re.match(s, line, re.M)
 		#Add results
 		if res:
-			print line
+			#print line
 			#if test 0 disregard
 			if res.group(1) != '0':
 				#print 'Test %s Res %s'%(res.group(1), res.group(2))
@@ -106,17 +120,21 @@ if __name__ == '__main__':
 	#Both
 	r_set3={ 1:0, 2:0, 3:0, 4:0, 5:0}
 
+	cnt = 0
+
 	for filename in glob.glob('./Logs/*_res.txt'):
-		print filename
-		if file_len(filename) >= 19:
+		#print filename
+		if file_len(filename) >= 19 and file_nocon(filename) == False:
 			fi = open(filename, 'r')
 			line=fi.readline()
 			st+=line
 			#print line
 			findSet(line, fi)
 			st+="---------------------------------------\n"
-			print '------------------------------------------------\n'
+			print '------------------------------------------------'
 			fi.close()
+		else:
+			cnt+=1
 
 	fi = open("./Logs/fullLog.txt", 'w')
 	fi.write(st)
@@ -135,4 +153,4 @@ if __name__ == '__main__':
 	#print r_set2
 	#print 'Res Both'
 	#print r_set3
-	getres()
+	getres(cnt)
