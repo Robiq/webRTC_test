@@ -49,6 +49,7 @@ var console = process.console;
 https://github.com/js-platform/node-webrtc
 
 https://github.com/shanet/WebRTC-Example
+<<<<<<< HEAD
 
 203.178.143.47
 
@@ -80,6 +81,8 @@ journalctl -u service-name.service
 journalctl -u service-name.service -b
 
 
+####IP
+
 Server addresses:
 4:
 203.178.143.47
@@ -102,24 +105,20 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-applica
 
 https://www.nginx.com/blog/free-certificates-lets-encrypt-and-nginx/
 
+
 sudo ln -s /etc/nginx/sites-available/NAME /etc/nginx/sites-enabled/NAME
 
 To remove page:
 sudo pm2 unstartup systemd
+=======
+####Activate nginx site
+sudo ln -s /etc/nginx/sites-available/NAME /etc/nginx/sites-enabled/NAME
+
 
 sudo cat /var/log/nginx/error.log
 
 /etc/sites-available/ip is this server
 sudo ufw allow 8443
-
-Create script to run nodejs server?
-https://gist.github.com/jobsamuel/6d6095d52228461f3c53
-Use passenger?
-https://www.phusionpassenger.com/library/walkthroughs/deploy/nodejs/ownserver/nginx/oss/trusty/install_passenger.html
-Heroku?
-https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
-
-
 
 
 /var/log/node/server.log = webrtc log!
@@ -127,7 +126,6 @@ https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
 sudo systemctl daemon-reload
 
 /etc/systemd/system/webrtc_test.service
-
 
 
 [Unit]
@@ -158,3 +156,13 @@ SyslogIdentifier=webrtc_test
 [Install]
 WantedBy=multi-user.target
 
+
+User&PW
+webrtc
+
+Create script to run nodejs server?
+https://gist.github.com/jobsamuel/6d6095d52228461f3c53
+Use passenger?
+https://www.phusionpassenger.com/library/walkthroughs/deploy/nodejs/ownserver/nginx/oss/trusty/install_passenger.html
+Heroku?
+https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction

@@ -12,7 +12,7 @@
     <body>
         <!--Always shown -->
         <div id="Header">
-            <h1>Testing webRTC connection-offer. Thank you for your help.</h1> <h1 style="color:red;">Please leave this window open until otherwise notified. Approximate length of test: 10 minutes.</h1>
+            <h1>Testing webRTC connection-offer. Thank you for your help.</h1> <h1 style="color:red;">Please leave this window open until otherwise notified. Approximate length of test: 40 minutes.</h1>
         </div>
 
         <!-- Test 1 -->
@@ -20,94 +20,100 @@
 
         <h3>Test 1/3 (Server delay):</h3>
         <!-- WebSocket successful -->
-        <div id="1" class="hidden">
+        <div id="ws" class="hidden">
             <h4>Successfully connected to the web-socket!</h4>
-            <h4>Starting webRTC tests.</h4>
+            <h4>Starting webRTC tests. Test 1 is a 5 second delay.</h4>
         </div>
         <!-- Test 1 success -->
-        <div id="2" class="hidden">
-            <h4>Test 1 successful!<br>Starting test 2...</h4>
+        <div id="1" class="hidden">
+            <h4>Test 1 #!<br>Starting test 2, 30 second delay...</h4>
         </div>
         <!-- Test 2 success -->
-        <div id="3" class="hidden">
-            <h4>Test 2 successful!<br>Starting test 3...</h4>
+        <div id="2" class="hidden">
+            <h4>Test 2 #!<br>Starting test 3, 1 minute delay...</h4>
         </div>
         <!-- Test 3 success -->
-        <div id="4" class="hidden">
-            <h4>Test 3 successful!<br>Starting test 4...</h4>
+        <div id="3" class="hidden">
+            <h4>Test 3 #!<br>Starting test 4, 2 minutes delay...</h4>
         </div>
         <!-- Test 4 success -->
-        <div id="5" class="hidden">
-            <h4>Test 4 successful!<br>Starting test 5...</h4>
+        <div id="4" class="hidden">
+            <h4>Test 4 #!<br>Starting test 5, 5 minutes delay...</h4>
         </div>
         <!-- Test 5 success -->
-        <div id="6" class="hidden">
-            <h4>Test 5 successful!</h4>        
+        <div id="5" class="hidden">
+            <h4>Test 5 #!</h4>        
         </div>
         <!-- Done -->
-        <div id="7" class="hidden">
+        <div id="T1D" class="hidden">
              <h3>Test 1 is over.</h3>
         </div>
 
         
         <!-- Test 2 -->
 
-        <h3 id="T2">Test 2/3 (Client delay):</h3>
+        <div id="T2" class="hidden">
+            <h3> Test 2/3 Client delay:</h3>
+            <h4>Starting test 1, 5 second delay...</h4>
+        </div>
+
         <!-- Test 1 success -->
-        <div id="8" class="hidden">
-            <h4>Test 1 successful!<br>Starting test 2...</h4>
+        <div id="6" class="hidden">
+            <h4>Test 1 #!<br>Starting test 2, 30 second delay...</h4>
         </div>
         <!-- Test 2 success -->
-        <div id="9" class="hidden">
-            <h4>Test 2 successful!<br>Starting test 3...</h4>
+        <div id="7" class="hidden">
+            <h4>Test 2 #!<br>Starting test 3, 1 minute delay...</h4>
         </div>
         <!-- Test 3 success -->
-        <div id="10" class="hidden">
-            <h4>Test 3 successful!<br>Starting test 4...</h4>
+        <div id="8" class="hidden">
+            <h4>Test 3 #!<br>Starting test 4, 2 minutes delay...</h4>
         </div>
         <!-- Test 4 success -->
-        <div id="11" class="hidden">
-            <h4>Test 4 successful!<br>Starting test 5...</h4>
+        <div id="9" class="hidden">
+            <h4>Test 4 #!<br>Starting test 5, 5 minute delay...</h4>
         </div>
         <!-- Test 5 success -->
-        <div id="12" class="hidden">
-            <h4>Test 5 successful!</h4>        
+        <div id="10" class="hidden">
+            <h4>Test 5 #!</h4>        
         </div>
         <!-- Done -->
-        <div id="13" class="hidden">
+        <div id="T2D" class="hidden">
              <h3>Test 2 is over.</h3>
         </div>
 
 
         <!-- Test 3 -->
 
-        <h3 id="T3">Test 3/3 (Server and Client delay):</h3>
+        <div id="T3" class="hidden">
+            <h3> Test 3/3 (Server and Client delay):</h3>
+            <h4>Starting test 1, 10 second delay...</h4>
+        </div>
         <!-- Test 1 success -->
-        <div id="14" class="hidden">
-            <h4>Test 1 successful!<br>Starting test 2...</h4>
+        <div id="11" class="hidden">
+            <h4>Test 1 #!<br>Starting test 2, 1 minute delay...</h4>
         </div>
         <!-- Test 2 success -->
-        <div id="15" class="hidden">
-            <h4>Test 2 successful!<br>Starting test 3...</h4>
+        <div id="12" class="hidden">
+            <h4>Test 2 #!<br>Starting test 3, 2 minute delay...</h4>
         </div>
         <!-- Test 3 success -->
-        <div id="16" class="hidden">
-            <h4>Test 3 successful!<br>Starting test 4...</h4>
+        <div id="13" class="hidden">
+            <h4>Test 3 #!<br>Starting test 4, 4 minute delay...</h4>
         </div>
         <!-- Test 4 success -->
-        <div id="17" class="hidden">
-            <h4>Test 4 successful!<br>Starting test 5...</h4>
+        <div id="14" class="hidden">
+            <h4>Test 4 #!<br>Starting test 5, 10 minute delay...</h4>
         </div>
         <!-- Test 5 success -->
-        <div id="18" class="hidden">
-            <h4>Test 5 successful!</h4>        
+        <div id="15" class="hidden">
+            <h4>Test 5 #!</h4>        
         </div>
         <!-- Done -->
-        <div id="19" class="hidden">
-             <h3>Test 3 is over.</h3>
+        <div id="T3D" class="hidden">
+            <h3>Test 3 is over.</h3>
+            <h2 style="color:red;" >Test is over. You can now close this window.</h2>
         </div>
-
-        <h3 id="20" style="color:red;">Test is over. You can now close this window.</h3>
         
         <script type="text/javascript">
             pageReady();

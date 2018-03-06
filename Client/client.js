@@ -3,14 +3,14 @@ var uuid=-1;
 var test = 1;
 var log='';
 var serverConnection;
-var delay=false;
+var keep;
 
 var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 
 //Activates when page is loaded
 function pageReady() {
 
-    serverConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
+    serverConnection = new WebSocket('ws://' + window.location.hostname + ':8443');
     serverConnection.onmessage = gotMessageFromServer;
 
     var constraints = {
@@ -29,56 +29,80 @@ function start() {
 function gotMessageFromServer(message) {
     if(!peerConnection){
         start();
-        updateHTML();
-        test++;
     } 
         
 
     var signal = JSON.parse(message.data);
 
     // Ignore messages from ourself
-    if(signal.uuid == uuid) return;
+    if(signal.uuid == uuid){
+        errorHandler('KeepAlive received');
+    }
 
     if(signal.set){
         uuid = signal.uuid
-        updateHTML();
-        test++;
+        document.getElementById("ws").className = '';
+        //keep=setInterval(keepAlive, 75000);
     }
     //Receive offer from server
     if(signal.sdp) {
-        peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
-            // Only create answers in response to offers
-            if(signal.sdp.type == 'offer') {
-                //SENDS ANSWER
-                peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
+        //Simulates server-delay
+        if( test > 5 && test < 11 ){
+            setDescription(signal.sdp);
+        }else{
+            //Delay currently 5sec - 5 min
+            errorHandler('Delaying server for case: ' + test);
+            switch(test){
+                case 1:
+                case 11: setTimeout(setDescription, 5000, signal.sdp); break;
+                case 2: 
+                case 12: setTimeout(setDescription, 30000, signal.sdp); break;
+                case 3: 
+                case 13: setTimeout(setDescription, 60000, signal.sdp); break;
+                case 4: 
+                case 14: setTimeout(setDescription, 120000, signal.sdp); break;
+                case 5: 
+                case 15: setTimeout(setDescription, 300000, signal.sdp); break;
+                default: errorHandler("Testcase not recognized - Server delay");
             }
-        }).catch(errorHandler);
+        }
     } else if(signal.reset){
         if(signal.success){
             errorHandler('Test '+ test + ' succeeded');
-            updateHTML();
+            updateHTML(true);
         }else{
             errorHandler('Test '+ test + ' failed');       
+            updateHTML(false);
         }
 
+        //Removed one updateHTML from each if-clause
         //Handling new tests/finished testing
-        if(++test == 7){
-            updateHTML();
+        if(++test == 6){
+            document.getElementById("T1D").className = '';
             document.getElementById("T2").className = '';
-            delay=true;
-            test++;
-
-        }else if(test == 13){
-            updateHTML();
-            document.getElementById("T3").className = '';
-            test++;
-
-        }else if(test>=20){
-            updateHTML();
             serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+        }else if(test == 11){
+            document.getElementById("T2D").className = '';
+            document.getElementById("T3").className = '';
+            serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+        }else if(test>15){
+            document.getElementById("T3D").className = '';
+            errorHandler('Testing finished!');
+            serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+            //clearInterval(keep);
         }
         start();
     }
+}
+
+function setDescription(sig){
+    peerConnection.setRemoteDescription(new RTCSessionDescription(sig)).then(function() {
+        // Only create answers in response to offers
+        if(sig.type == 'offer') {
+            //SENDS ANSWER
+            peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
+        }
+    }).catch(errorHandler);
 }
 
 //Answers the offer
@@ -90,23 +114,36 @@ function createdDescription(description) {
     }).catch(errorHandler);
 }
 
-function gotIceCandidate(event) {
+async function gotIceCandidate(event) {
     if(event.candidate == null){
         errorHandler('ICE done. Answer: ', peerConnection.localDescription);
         //SENDS ANSWER
-        if(delay){
-        //Delay currently from .5 - 10 sec
+        //Simulates client-delay
+        if( test > 5 ){
+            //Delay currently 5sec - 5 min
+            errorHandler('Delaying client for case: ' + test);
             switch(test){
-                case 1: break;
-                case 2: await sleep(500); break;
-                case 3: await sleep(1000); break;
-                case 4: await sleep(2000); break;
-                case 5: await sleep(10000); break;
-                default: errorHandler("Testcase not recognized");
+                case 6:
+                case 11: setTimeout(sendSDP, 5000); break;
+                case 7: 
+                case 12: setTimeout(sendSDP, 30000); break;
+                case 8: 
+                case 13: setTimeout(sendSDP, 60000); break;
+                case 9: 
+                case 14: setTimeout(sendSDP, 120000); break;
+                case 10: 
+                case 15: setTimeout(sendSDP, 300000); break;
+                default: errorHandler("Testcase not recognized - Client Delay");
             }
+        }else{
+            sendSDP();
         }
-        serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
     }
+}
+
+function sendSDP(){
+    errorHandler('Sending reply');
+    serverConnection.send(JSON.stringify({'sdp': peerConnection.localDescription, 'uuid': uuid}));
 }
 
 function errorHandler(error, obj=null) {
@@ -114,19 +151,25 @@ function errorHandler(error, obj=null) {
     var utcDate = dt.toUTCString();
     if(obj){
         obj=JSON.stringify(obj);
-        log += utcDate + ":\n " + error + obj + '\n\n';
+        log += "["+utcDate + "]:\n " + error + obj + '\n';
         console.log(error + obj);
     }else{
-        log += utcDate + ":\n " + error+'\n\n';
+        log += "["+utcDate + "]:\n " + error+'\n';
         console.log(error);
     }
 }
 
 //Updates html
-function updateHTML(){
-    errorHandler('Displaying test ' + test + ' succeeded');
-    if(test < 21){
+function updateHTML(res){
+    var out='';
+    if(res) out='SUCESS';
+    else    out='FAILED';
+    errorHandler('Displaying test ' + test + ' result =' + out);
+    if(test < 16){
         let el = document.getElementById(test);
+        let x = el.innerHTML;
+        x = x.replace("#", out);
+        el.innerHTML=x;
         el.className = '';
     }
 }
@@ -134,3 +177,8 @@ function updateHTML(){
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+/*
+function keepAlive(ws){
+    errorHandler('keepAlive sent!');
+    serverConnection.send(JSON.stringify({'keepalive': uuid}));
+}*/

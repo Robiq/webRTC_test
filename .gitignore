@@ -1,3 +1,6 @@
 #Ignore debug
 npm-debug.log
 node_modules
+Logs/
+*.out
+Splunk/
