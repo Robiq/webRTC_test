@@ -49,7 +49,6 @@ var console = process.console;
 https://github.com/js-platform/node-webrtc
 
 https://github.com/shanet/WebRTC-Example
-<<<<<<< HEAD
 
 203.178.143.47
 

@@ -1,0 +1,31 @@
+{
+  "name": "webrtc_test",
+  "version": "1.0.0",
+  "description": "Testing framework for webRTC connection offers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "clean": "cd ./Logs && rm * && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robiq/webRTC_test.git"
+  },
+  "keywords": [
+    "test",
+    "webrtc",
+    "connection",
+    "offer"
+  ],
+  "author": "Robin Lunde",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robiq/webRTC_test/issues"
+  },
+  "homepage": "https://github.com/Robiq/webRTC_test#readme",
+  "dependencies": {
+    "node-pre-gyp": "^0.6.39",
+    "wrtc": "0.0.63",
+    "ws": "^3.3.2"
+  }
+}
