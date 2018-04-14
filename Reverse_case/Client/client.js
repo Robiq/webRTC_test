@@ -3,7 +3,7 @@ var uuid=-1;
 var test = 1;
 var log='';
 var serverConnection;
-
+var peerConnection;
 var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 
 //Activates when page is loaded
@@ -36,32 +36,37 @@ function start() {
 function gotMessageFromServer(message) {
 
     var signal = JSON.parse(message.data);
-    console.log(signal);
-    var signal2 = JSON.parse(message);
-    console.log(signal2);
+    errorHandler("Signal received ",signal);
 
-    switch(signal){
-    	//Ignore messages from ourself
-    	case uuid:
-    		break;
-    	//Set own uuid and start
-    	case set:
-	        uuid = signal.uuid
-	        document.getElementById("ws").className = '';
-	        //Start WebRTC!
-	        start();      
-    		break;
-    	//Receive Answer from server
-    	case sdp:
-    		handleSDP(signal); break;
-       //Ready for next test
-    	case reset:
-    	    test++;
-    		start();
-    		break;
-    	default: errorHandler("Unknown signal!", signal);
+    //Ignore messages from ourself
+    if(signal.uuid === uuid){
+    	errorHandler("Ignore messages sent from this client");
+    
+    //Set own uuid and start
+    }else if(signal.set){
+	    uuid = signal.uuid
+	    document.getElementById("ws").className = '';
+	    //Start WebRTC!
+	    start();          
+   	
+    //Receive Answer from server
+    }else if(signal.sdp){
+   		handleSDP(signal);      
+    
+    //Ready for next test
+    }else if(signal.reset){
+   	    test++;
+        if(test>15){
+            peerConnection.close();
+            serverConnection.close();
+        }else{
+   		   start();
+        }
+    }else{
+        errorHandler("Unknown signal!", signal);
     }
 }
+
 function handleSDP(signal){
 	//Simulates client-delay
     if( test < 6){
@@ -90,7 +95,7 @@ function gotIceCandidate(event) {
         errorHandler('ICE done. Offer: ', peerConnection.localDescription);
         //SENDS ANSWER
         //Simulates Server-delay
-        if( test < 6  && test > 10 ){
+        if( test < 6  || test > 10 ){
             //Delay currently 5sec - 5 min
             errorHandler('Delaying Server for case: ' + test);
             switch(test){
@@ -176,15 +181,15 @@ function runTest(){
     }
     peerConnection=null;
     //Send result to Server (acting as client)
-    conn[curUUID].send(JSON.stringify({'reset': true, 'success': res}));
+    serverConnection.send(JSON.stringify({'reset': true, 'success': res, 'uuid': uuid}));
     updateHTML(res);
 }
 
 //Updates html
 function updateHTML(res){
     var out='';
-    if(res) out='SUCESS';
-    else    out='FAILED';
+    if(res) out='done! Status: SUCESS';
+    else    out='done! Status: FAILED';
     errorHandler('Displaying test ' + test + ' result =' + out);
     if(test < 16){
         let el = document.getElementById(test);
@@ -192,6 +197,19 @@ function updateHTML(res){
         x = x.replace("#", out);
         el.innerHTML=x;
         el.className = '';
+    }
+    if(test==5){
+       document.getElementById("T1D").className = '';
+       document.getElementById("T2").className = '';
+       serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+    }else if(test == 10){
+        document.getElementById("T2D").className = '';
+        document.getElementById("T3").className = '';
+        serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+    }else if(test>14){
+        document.getElementById("T3D").className = '';
+        errorHandler('Testing finished!');
+        serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
     }
 }
 
@@ -206,4 +224,10 @@ function errorHandler(error, obj=null) {
         log += "["+utcDate + "]:\n " + error+'\n';
         console.log(error);
     }
+}
+window.addEventListener('unload', messageSend, false);
+
+function messageSend(){
+    serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+    serverConnection.close();
 }

@@ -27,10 +27,10 @@ var handleRequest = function(request, response) {
     try{
         if(request.url === '/') {
             response.writeHead(200, {'Content-Type': 'text/html'});
-            response.end(fs.readFileSync('/home/robin/webRTC_test/Client/index.html'));
+            response.end(fs.readFileSync('/home/robin/webRTC_test/Reverse_case/Client/index.html'));
         } else if(request.url === '/client.js') {
             response.writeHead(200, {'Content-Type': 'application/javascript'});
-            response.end(fs.readFileSync('/home/robin/webRTC_test/Client/client.js'));
+            response.end(fs.readFileSync('/home/robin/webRTC_test/Reverse_case/Client/client.js'));
         } else if (request.url === '/favicon.ico') {
             response.writeHead(200, {'Content-Type': 'image/x-icon'} );
             response.end();
@@ -57,7 +57,7 @@ var wss = new WebSocketServer({server: httpsServer});
 wss.on('connection', function(ws) {
     //Store connection creation time
     var dt = new Date();
-    ws.utcDate ="[" + dt.toLocaleDateString() + "] [" + dt.toLocaleTimeString() + "]";
+    ws.utcDate ="[" + dt.toLocaleDateString() + "]";
     ws.id = uuid++;
     ws.test=0;
     ws.reset=0;
@@ -91,6 +91,7 @@ function handleMessage(signal){
     curUUID = signal.uuid;
 
     if(signal.sdp) {
+        resetpeer();
         //Once connection is set up - DO TEST!
         peerConnection[curUUID].setRemoteDescription(new RTCSessionDescription(signal.sdp)).catch(errorHandler);
         //prevDt = new Date();
@@ -105,6 +106,8 @@ function handleMessage(signal){
         errorHandler("Received client log from client " + curUUID);
         clientLog[signal.uuid]=signal.log;
         write();
+        peerConnection[curUUID].close();
+        resetpeer();
     }else if(signal.reset){
         var ws = conn[curUUID];
         //log result then reset TODO
@@ -127,8 +130,6 @@ function handleMessage(signal){
             ws.test=1;
             write();
         }
-
-        resetpeer();
         conn[curUUID].send(JSON.stringify({'reset': true}));
     }else{
         errorHandler('Unknown signal received(ws): ', signal);
@@ -177,7 +178,7 @@ function errorHandler(error, obj) {
 function write(){
     var conID = curUUID;
     var curLog = log[conID] + "--------------------------------------------\n\nClient log:\n-----------------\n"+clientLog[conID];
-    var fnam = "/home/robin/webRTC_test/Logs/"+conID+" "+ conn[conID].utcDate;
+    var fnam = "/home/robin/webRTC_test/Reverse_case/Logs/"+ conn[conID].utcDate+"_"+conID+;
     try{
         fs.writeFileSync(fnam+"_res.txt", testLog[conID]);
         errorHandler('The file has been saved (res)!');
