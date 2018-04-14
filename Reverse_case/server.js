@@ -178,7 +178,7 @@ function errorHandler(error, obj) {
 function write(){
     var conID = curUUID;
     var curLog = log[conID] + "--------------------------------------------\n\nClient log:\n-----------------\n"+clientLog[conID];
-    var fnam = "/home/robin/webRTC_test/Reverse_case/Logs/"+ conn[conID].utcDate+"_"+conID+;
+    var fnam = "/home/robin/webRTC_test/Reverse_case/Logs/"+ conn[conID].utcDate+"_"+conID;
     try{
         fs.writeFileSync(fnam+"_res.txt", testLog[conID]);
         errorHandler('The file has been saved (res)!');

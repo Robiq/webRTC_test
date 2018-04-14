@@ -57,8 +57,12 @@ function gotMessageFromServer(message) {
     }else if(signal.reset){
    	    test++;
         if(test>15){
-            peerConnection.close();
-            serverConnection.close();
+            try{
+                peerConnection.close();
+                serverConnection.close();
+            }catch(err){
+                errorHandler("Closing connections: ", err);
+            }
         }else{
    		   start();
         }
@@ -121,7 +125,10 @@ function iceChange(event){
     try{
         var state = peerConnection[curUUID].iceConnectionState;
         errorHandler("New ICE state: ", state);
-    }catch(e){errorHandler('iceChange: ', e);}
+    }catch(e){
+        errorHandler('iceChange error: ', e);
+        errorHandler('iceChange event: ', event);
+    }
     /*if(state == 'connected'){
         var dt = new Date();
         dt = dt - prevDt;
