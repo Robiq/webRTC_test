@@ -81,6 +81,9 @@ wss.on('connection', function(ws) {
         errorHandler('Got message(ws): ', message);
         handleMessage(message);
     });
+    ws.on('error', function(err){
+        console.log('Socket error: ', err);
+    });
 });
 
 function resetpeer(){
@@ -142,7 +145,11 @@ function handleMessage(signal){
             ws.test=1;
             write();
         }
-        conn[curUUID].send(JSON.stringify({'reset': true}));
+        try{
+            conn[curUUID].send(JSON.stringify({'reset': true}));
+        }catch(err){
+            errorHandler('Socket closed - sending reset-signal failed: ', err)
+        }
     }else{
         errorHandler('Unknown signal received(ws): ', signal);
     }
@@ -171,7 +178,12 @@ function iceChange(event){
 function sendDescription() {
     errorHandler('Sending answer to: ', curUUID);
     //SENDS Answer
-    conn[curUUID].send(JSON.stringify({'sdp': peerConnection[curUUID].localDescription, 'uuid': serverID}));
+    try{
+        conn[curUUID].send(JSON.stringify({'sdp': peerConnection[curUUID].localDescription, 'uuid': serverID}));
+    }
+    catch(err){
+        errorHandler('Socket closed - sending sdp failed: ', err)
+    }
 }
 
 function errorHandler(error, obj) {
@@ -206,3 +218,10 @@ function write(){
     }
 }
 errorHandler('Server running.');// Visit https://localhost:' + HTTPS_PORT + ' in Firefox/Chrome (note the HTTPS; there is no HTTP -> HTTPS redirect!)');
+
+//Catch uncaught exceptions
+process.on('uncaughtException', function (err) {
+  // handle the error safely
+  errorHandler('Uncaught Exception', err);
+  throw new Error(err);
+});

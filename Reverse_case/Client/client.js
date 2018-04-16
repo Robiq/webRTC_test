@@ -61,7 +61,7 @@ function gotMessageFromServer(message) {
                 peerConnection.close();
                 serverConnection.close();
             }catch(err){
-                errorHandler("Closing connections: ", err);
+                errorHandler("ERROR closing connections: ", err);
             }
         }else{
    		   start();
@@ -217,6 +217,7 @@ function updateHTML(res){
         document.getElementById("T3D").className = '';
         errorHandler('Testing finished!');
         serverConnection.send(JSON.stringify({'log': log, 'uuid': uuid}));
+        window.removeEventListener('unload', messageSend, false);
     }
 }
 
