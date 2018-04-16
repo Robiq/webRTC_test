@@ -195,7 +195,7 @@ function runTest(){
 //Updates html
 function updateHTML(res){
     var out='';
-    if(res) out='done! Status: SUCESS';
+    if(res) out='done! Status: SUCCESS';
     else    out='done! Status: FAILED';
     errorHandler('Displaying test ' + test + ' result =' + out);
     if(test < 16){
