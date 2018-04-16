@@ -4,3 +4,4 @@ node_modules
 Logs/
 *.out
 Splunk/
+test.py
