@@ -71,7 +71,7 @@ wss.on('connection', function(ws) {
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
-    testLog[curUUID]='User ' + ws.id + ' Time '+ ws.utcDate +'\nTest '+ conn[curUUID].test + ' succeeded!\n';
+    testLog[curUUID]='User ' + ws.id + ' Date '+ ws.utcDate +'\nTest '+ conn[curUUID].test + ' succeeded!\n';
     ws.test++;
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
