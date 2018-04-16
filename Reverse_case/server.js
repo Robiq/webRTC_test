@@ -1,4 +1,4 @@
-const HTTPS_PORT = 8443;
+const HTTPS_PORT = 9443;
 
 const fs = require('fs');
 const http = require('http');
@@ -25,13 +25,20 @@ var handleRequest = function(request, response) {
     // Render the single client html file for any request the HTTP server receives
     errorHandler('request received(http): ' + request.url);
     try{
-        if(request.url === '/') {
+        if(request.url === '/reverse') {
             response.writeHead(200, {'Content-Type': 'text/html'});
             response.end(fs.readFileSync('/home/robin/webRTC_test/Reverse_case/Client/index.html'));
+        } else if(request.url === '/reverse/client.js') {
+            response.writeHead(200, {'Content-Type': 'application/javascript'});
+            response.end(fs.readFileSync('/home/robin/webRTC_test/Reverse_case/Client/client.js'));
         } else if(request.url === '/client.js') {
             response.writeHead(200, {'Content-Type': 'application/javascript'});
             response.end(fs.readFileSync('/home/robin/webRTC_test/Reverse_case/Client/client.js'));
-        } else if (request.url === '/favicon.ico') {
+        } else if (request.url === '/reverse/favicon.ico') {
+            response.writeHead(200, {'Content-Type': 'image/x-icon'} );
+            response.end();
+            console.log('favicon requested');
+        }  else if (request.url === '/favicon.ico') {
             response.writeHead(200, {'Content-Type': 'image/x-icon'} );
             response.end();
             console.log('favicon requested');

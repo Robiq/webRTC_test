@@ -9,7 +9,7 @@ var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
 //Activates when page is loaded
 function pageReady() {
 
-    serverConnection = new WebSocket('ws://' + window.location.hostname + ':8443');
+    serverConnection = new WebSocket('ws://' + window.location.hostname + ':9443');
     serverConnection.onmessage = gotMessageFromServer;
 
     var constraints = {

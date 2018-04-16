@@ -105,8 +105,6 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-applica
 https://www.nginx.com/blog/free-certificates-lets-encrypt-and-nginx/
 
 
-sudo ln -s /etc/nginx/sites-available/NAME /etc/nginx/sites-enabled/NAME
-
 To remove page:
 sudo pm2 unstartup systemd
 =======
@@ -136,7 +134,7 @@ Type=simple
 User=robin
 Group=www-data
 ExecStart=/bin/bash -c 'exec /usr/local/bin/node /home/robin/webRTC_test/server.js 2>&1 >> /home/robin/webRTC_test/Logs/syslog/server.log'
-#ExecStart=/home/robin/webRTC_test/start.sh
+#ExecStart=/home/robin/webRTC_tessudo systemctl enable webrtc_testt/start.sh
 Environment=NODE_ENV=production PORT=8443
 
 
@@ -165,3 +163,10 @@ Use passenger?
 https://www.phusionpassenger.com/library/walkthroughs/deploy/nodejs/ownserver/nginx/oss/trusty/install_passenger.html
 Heroku?
 https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction
+
+Reverse:
+/etc/systemd/system/webrtc_test_reverse.service
+/var/log/node/server.log = webrtc log!
+
+sudo systemctl enable webrtc_test_reverse
+sudo systemctl restart webrtc_test_reverse
