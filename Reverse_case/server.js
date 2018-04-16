@@ -71,7 +71,7 @@ wss.on('connection', function(ws) {
     conn[ws.id] = ws;
     curUUID = ws.id;
     log[curUUID] = "Start connection: " + ws.id+" \n\n";
-    testLog[curUUID]='User ' + ws.id + ' Time '+ws.utcDate +'\nTest '+ conn[curUUID].test + ' succeeded!\n';
+    testLog[curUUID]='User ' + ws.id + ' Time '+ ws.utcDate +'\nTest '+ conn[curUUID].test + ' succeeded!\n';
     ws.test++;
     ws.send(JSON.stringify({'set': true, 'uuid': ws.id}));
     errorHandler('Client ' + ws.id + ' connected! (ws)')
@@ -126,6 +126,7 @@ function handleMessage(signal){
             errorHandler('Test ' + ws.test + ' succeeded!');
             testLog[curUUID]+='Test '+ ws.test + ' succeeded!\n';
         }else{
+            var utcDate = "[" + dt.toLocaleDateString() + " | " + dt.toLocaleTimeString() + "]";
             errorHandler('Test ' + ws.test + ' failed!');
             testLog[curUUID]+='Test '+ ws.test + ' failed! Time is: ' + utcDate+'\n';
         }
