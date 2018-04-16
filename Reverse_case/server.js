@@ -113,7 +113,11 @@ function handleMessage(signal){
         errorHandler("Received client log from client " + curUUID);
         clientLog[signal.uuid]=signal.log;
         write();
-        peerConnection[curUUID].close();
+        try{
+            peerConnection[curUUID].close();
+        }catch(err){
+            errorHandler('Could not close peer: ', err);
+        }
         resetpeer();
     }else if(signal.reset){
         var ws = conn[curUUID];
