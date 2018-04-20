@@ -25,7 +25,7 @@ function start() {
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.oniceconnectionstatechange = iceChange;
     //datachannel
-    peerConnection.createDataChannel('test', {reliable: true})
+    peerConnection.createDataChannel(uuid, {reliable: true})
     //Creates offer
     peerConnection.createOffer().then(function (description){
         errorHandler('got description(webRTC): ', description);

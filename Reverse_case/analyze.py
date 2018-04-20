@@ -1,7 +1,7 @@
 #Test 1 failed!
 #succeeded
 #Testset nr. 3 finished!
-
+from testIP import *
 import os, glob
 import re
 
@@ -29,18 +29,18 @@ def file_len(fname):
 def getres(nr):
 	print '%d files removed for not supporting webRTC or being incomplete\n'%(nr)
 	print 'Testcase 1:\n--------------'
-	print 'Tests done: %d'%(set1[1])
 	for x in range(1,6):
+		print 'Tests done for test %d: %d'%(x, set1[x])
 		print 'Success rate for test %d is %0.2f. Successful: %d'% (x, (float(r_set1[x])/float(set1[x])*100.00), r_set1[x])
 		#print r_set1[x], set1[x]
 	print '\nTestcase 2:\n--------------'
-	print 'Tests done: %d'%(set2[1])
 	for x in range(1,6):
+		print 'Tests done for test %d: %d'%(x, set2[x])
 		print 'Success rate for test %d is %0.2f. Successful: %d'% (x, (float(r_set2[x])/float(set2[x])*100.00), r_set2[x])
 		#print r_set2[x], set2[x]
 	print '\nTestcase 3:\n--------------'
-	print 'Tests done: %d'%(set3[1])
 	for x in range(1,6):
+		print 'Tests done for test %d: %d'%(x, set3[x])
 		print 'Success rate for test %d is %0.2f. Successful: %d'% (x, (float(r_set3[x])/float(set3[x])*100.00), r_set3[x])
 		#print r_set3[x], set3[x]
 
@@ -121,17 +121,19 @@ if __name__ == '__main__':
 	r_set3={ 1:0, 2:0, 3:0, 4:0, 5:0}
 
 	cnt = 0
-
+	name=''
 	for filename in glob.glob('./Logs/*_res.txt'):
-		print filename
-		if file_len(filename) >= 14 and file_nocon(filename) == False:
+		#print filename
+		if file_len(filename) >= 5 and file_nocon(filename) == False:
+		#if file_nocon(filename) == False:
+			name+=filename+'\n'
 			fi = open(filename, 'r')
 			line=fi.readline()
 			st+=line
 			#print line
 			findSet(line, fi)
 			st+="---------------------------------------\n"
-			print '------------------------------------------------'
+			#print '------------------------------------------------'
 			fi.close()
 		else:
 			cnt+=1
@@ -140,6 +142,11 @@ if __name__ == '__main__':
 	fi.write(st)
 	fi.close()
 
+	fi2 = open("./Logs/files.txt", 'w')
+	fi2.write(name)
+	fi2.close()
+
+	start()
 	#print 'Results'
 	#print 'Server'
 	#print set1

@@ -124,7 +124,8 @@ if __name__ == '__main__':
 
 	for filename in glob.glob('./Logs/*_res.txt'):
 		print filename
-		if file_len(filename) >= 14 and file_nocon(filename) == False:
+		#if file_len(filename) >= 14 and file_nocon(filename) == False:
+		if file_nocon(filename) == False:
 			fi = open(filename, 'r')
 			line=fi.readline()
 			st+=line

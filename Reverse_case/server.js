@@ -64,7 +64,7 @@ var wss = new WebSocketServer({server: httpsServer});
 wss.on('connection', function(ws) {
     //Store connection creation time
     var dt = new Date();
-    ws.utcDate ="[" + dt.toLocaleDateString() + "]";
+    ws.utcDate ="[" + dt.toLocaleDateString() + " | " + dt.toLocaleTimeString() + "]";
     ws.id = uuid++;
     ws.test=0;
     ws.reset=0;
@@ -89,11 +89,17 @@ wss.on('connection', function(ws) {
 function resetpeer(){
     errorHandler('Reset peerConnection for connection ', curUUID);
     var peerConnectionConfig = {'iceServers': [{'url': 'stun:stun.gmx.net'}]};
-    peerConnection[curUUID]=new RTCPeerConnection(peerConnectionConfig);
-    //Logs ICE change
-    peerConnection[curUUID].oniceconnectionstatechange = iceChange;
-    //Takes care of ice-candidates
-    peerConnection[curUUID].onicecandidate = gotIceCandidate;
+    
+    try{
+        peerConnection[curUUID]=new RTCPeerConnection(peerConnectionConfig);
+        //Logs ICE change
+        //peerConnection[curUUID].oniceconnectionstatechange = iceChange;
+        //Takes care of ice-candidates
+        peerConnection[curUUID].onicecandidate = gotIceCandidate;    
+    }catch(err){
+        errorHandler("Error when creating peerConnection ", err);
+        setTimeout(resetpeer, 1000);
+    }
 }
 
 //Handles messages from clients
@@ -116,14 +122,15 @@ function handleMessage(signal){
         errorHandler("Received client log from client " + curUUID);
         clientLog[signal.uuid]=signal.log;
         write();
-        try{
+        /*try{
             peerConnection[curUUID].close();
         }catch(err){
             errorHandler('Could not close peer: ', err);
-        }
+        }*/
         resetpeer();
     }else if(signal.reset){
         var ws = conn[curUUID];
+        var dt = new Date();
         //log result then reset TODO
         if(signal.success){
             errorHandler('Test ' + ws.test + ' succeeded!');
@@ -222,6 +229,6 @@ errorHandler('Server running.');// Visit https://localhost:' + HTTPS_PORT + ' in
 //Catch uncaught exceptions
 process.on('uncaughtException', function (err) {
   // handle the error safely
-  errorHandler('Uncaught Exception', err);
-  throw new Error(err);
+  console.error('Uncaught Exception', err);
+  console.error(err.stack);
 });
